@@ -1568,6 +1568,12 @@ select {
   color: var(--ink);
 }
 
+.about-sep {
+  color: var(--line-strong);
+  margin: 0 4px;
+  font-weight: 400;
+}
+
 .about-cta {
   margin-top: var(--sp-5);
   padding: 6px 0 6px 28px;
