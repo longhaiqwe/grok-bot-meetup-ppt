@@ -1,0 +1,1923 @@
+/*
+ * 极简暖纸网页演示样式（1920×1080 等比缩放）
+ *
+ * Refactoring UI Constraint Brief:
+ * - Stack: Pure static HTML/CSS/JS, 1920×1080 scaled stage + responsive overview grid.
+ * - Philosophy: True Swiss/Keynote minimalism. No outline kickers, no duration pills, no tag clutter,
+ *   no boxed-card walls. Whitespace, scale contrast, and 1px hairlines carry the structure.
+ * - Hierarchy:
+ *     Primary   -> Slide headline (--ink, 700, 64–84px, tight leading 1.15) or reveal hero (128px)
+ *     Secondary -> Key points (--ink 700 / --body2 500, 28–34px, leading 1.55)
+ *     Tertiary  -> Quiet captions & bottom-right page number (--muted, 500, 20–22px)
+ * - Typography: Strictly 2 weights (500 body, 700 headings); 3 warm neutral text colors + 1 accent.
+ * - Spacing scale (>= 25% steps): 8 / 16 / 24 / 36 / 56 / 80 / 112 px; outer > inner grouping.
+ * - Color: Warm cream paper default (#F8F4EC), all text pairs >= 4.7:1; zero grey text on tinted surfaces.
+ * - Depth: Flat editorial typography; subtle light-from-above elevation (X=0, Y>0) only on photographic media mats.
+ */
+
+:root {
+  --ease: cubic-bezier(0.2, 0.78, 0.24, 1);
+
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 36px;
+  --sp-5: 56px;
+  --sp-6: 80px;
+  --sp-7: 112px;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  --shadow-media: 0 18px 44px rgba(36, 31, 27, 0.10), 0 3px 10px rgba(36, 31, 27, 0.05);
+  --shadow-ctrl: 0 8px 24px rgba(36, 31, 27, 0.14);
+
+  --f-head: "Newsreader", "Noto Serif SC", "Songti SC", Georgia, serif;
+  --f-body: "Plus Jakarta Sans", "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
+  --f-num: "Newsreader", "Noto Serif SC", Georgia, serif;
+  --num-style: italic;
+  --num-w: 600;
+}
+
+/* ================= 主题 1：暖纸（默认） ================= */
+[data-theme="warm"] {
+  --frame: hsl(36 16% 82%);
+  --bg: hsl(38 42% 95%);
+  --surface: hsl(36 30% 90%);
+  --surface-white: hsl(40 60% 99%);
+  --line: hsl(34 20% 82%);
+  --line-strong: hsl(32 18% 70%);
+
+  --ink: hsl(26 16% 13%);
+  --body2: hsl(28 12% 32%);
+  --muted: hsl(28 11% 38%);
+
+  --accent: hsl(17 58% 39%);
+  --accent-ink: hsl(17 62% 30%);
+  --accent-soft: hsl(22 48% 91%);
+  --on-accent: hsl(40 60% 99%);
+
+  --toolbar-bg: rgba(36, 31, 27, 0.86);
+  --toolbar-ink: hsl(38 42% 95%);
+  --toolbar-muted: hsl(34 16% 76%);
+  --toolbar-line: rgba(255, 253, 249, 0.16);
+}
+
+/* ================= 主题 2：极简白 ================= */
+[data-theme="light"] {
+  --frame: hsl(214 16% 90%);
+  --bg: hsl(0 0% 100%);
+  --surface: hsl(214 20% 96%);
+  --surface-white: hsl(0 0% 100%);
+  --line: hsl(214 18% 88%);
+  --line-strong: hsl(214 14% 74%);
+
+  --ink: hsl(222 32% 14%);
+  --body2: hsl(217 16% 35%);
+  --muted: hsl(215 12% 45%);
+
+  --accent: hsl(18 64% 42%);
+  --accent-ink: hsl(18 68% 32%);
+  --accent-soft: hsl(22 64% 94%);
+  --on-accent: hsl(0 0% 100%);
+
+  --toolbar-bg: rgba(22, 30, 48, 0.88);
+  --toolbar-ink: hsl(0 0% 100%);
+  --toolbar-muted: hsl(215 16% 76%);
+  --toolbar-line: rgba(255, 255, 255, 0.16);
+
+  --f-head: "Plus Jakarta Sans", "Noto Sans SC", "PingFang SC", sans-serif;
+  --f-num: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
+  --num-style: normal;
+  --num-w: 700;
+}
+
+/* ================= 主题 3：夜幕 ================= */
+[data-theme="dark"] {
+  --frame: hsl(24 12% 5%);
+  --bg: hsl(24 12% 9%);
+  --surface: hsl(26 10% 14%);
+  --surface-white: hsl(26 10% 16%);
+  --line: hsl(26 10% 22%);
+  --line-strong: hsl(26 10% 34%);
+
+  --ink: hsl(36 28% 94%);
+  --body2: hsl(32 14% 75%);
+  --muted: hsl(30 10% 58%);
+
+  --accent: hsl(22 82% 64%);
+  --accent-ink: hsl(26 86% 82%);
+  --accent-soft: hsl(20 30% 18%);
+  --on-accent: hsl(24 18% 10%);
+
+  --shadow-media: 0 24px 56px rgba(0, 0, 0, 0.52);
+
+  --toolbar-bg: rgba(28, 25, 22, 0.9);
+  --toolbar-ink: hsl(36 28% 94%);
+  --toolbar-muted: hsl(30 10% 66%);
+  --toolbar-line: rgba(255, 255, 255, 0.14);
+
+  --f-head: "Plus Jakarta Sans", "Noto Sans SC", "PingFang SC", sans-serif;
+  --f-num: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
+  --num-style: normal;
+  --num-w: 700;
+}
+
+/* ================= 主题 4：报刊 ================= */
+[data-theme="editorial"] {
+  --frame: hsl(34 14% 78%);
+  --bg: hsl(38 30% 93%);
+  --surface: hsl(36 22% 88%);
+  --surface-white: hsl(40 40% 98%);
+  --line: hsl(30 14% 76%);
+  --line-strong: hsl(28 14% 58%);
+
+  --ink: hsl(24 16% 12%);
+  --body2: hsl(26 12% 28%);
+  --muted: hsl(28 11% 37%);
+
+  --accent: hsl(10 66% 42%);
+  --accent-ink: hsl(10 70% 31%);
+  --accent-soft: hsl(12 44% 90%);
+  --on-accent: hsl(40 50% 98%);
+
+  --f-head: "LXGW WenKai", "Newsreader", "Noto Serif SC", serif;
+  --f-body: "Plus Jakarta Sans", "Noto Serif SC", "Songti SC", serif;
+  --f-num: "Newsreader", "Noto Serif SC", serif;
+  --num-style: italic;
+  --num-w: 600;
+  --toolbar-bg: rgba(34, 28, 24, 0.88);
+  --toolbar-ink: hsl(38 30% 94%);
+  --toolbar-muted: hsl(34 14% 74%);
+  --toolbar-line: rgba(255, 255, 255, 0.16);
+}
+
+/* ================= 重置与基础 ================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow: hidden;
+  background: var(--frame);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s var(--ease);
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+/* ================= 舞台与翻页 ================= */
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform: translate(-50%, -50%);
+  background: var(--bg);
+  overflow: hidden;
+  box-shadow: var(--shadow-media);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 104px 136px 96px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.55;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(44px);
+  transition:
+    opacity 0.45s var(--ease),
+    transform 0.45s var(--ease),
+    visibility 0s linear 0.45s;
+}
+
+.slide.past {
+  transform: translateX(-44px);
+}
+
+.slide.active {
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.45s var(--ease),
+    transform 0.45s var(--ease),
+    visibility 0s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 20px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.slide.active .a:not(.frag),
+.slide.active .st > *:not(.frag) {
+  animation: rise 0.55s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 70ms);
+}
+
+/* 分步揭晓（按一次翻页键平滑浮现） */
+.frag {
+  opacity: 0;
+  transform: translateY(22px);
+  pointer-events: none;
+  transition: opacity 0.48s var(--ease), transform 0.48s var(--ease);
+}
+
+.frag.on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .frag,
+  .slide.active .a,
+  .slide.active .st > * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ================= 极简页眉与页码 ================= */
+.slide-title {
+  font-family: var(--f-head);
+  font-size: 64px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: var(--sp-5);
+  flex: none;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+/* ================= 三案例定位条（仅案例页显示，无框纯文字） ================= */
+.slide[data-case] {
+  padding-top: 104px;
+  padding-bottom: 88px;
+}
+
+.slide[data-case] .slide-title {
+  margin-bottom: 40px;
+}
+
+.slide[data-case] .pipe-line {
+  margin-top: -20px;
+  margin-bottom: 40px;
+}
+
+.case-nav {
+  position: absolute;
+  top: 44px;
+  right: 136px;
+  display: flex;
+  align-items: baseline;
+  gap: 36px;
+  z-index: 5;
+}
+
+.case-tab {
+  border: 0;
+  background: transparent;
+  padding: 0 0 8px;
+  border-bottom: 2px solid transparent;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 21px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.18s var(--ease);
+}
+
+.case-tab span {
+  font-family: var(--f-num);
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.case-tab:hover {
+  color: var(--ink);
+}
+
+.case-tab[aria-current="step"] {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom-color: var(--accent);
+}
+
+/* 极简右下角页码（无横线、无重复署名；有待揭晓步骤时左侧亮一个轻提示点） */
+.slide > .pg-num {
+  position: absolute;
+  right: 136px;
+  bottom: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-num);
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.slide > .pg-num[data-more="true"]::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ================= 01 封面（只放标题、简介、主图） ================= */
+.cover-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.cover-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.cover-title {
+  font-family: var(--f-head);
+  font-size: 80px;
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.cover-byline {
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cover-byline .name {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cover-byline .role {
+  font-size: 25px;
+  line-height: 1.5;
+  color: var(--body2);
+}
+
+.cover-photo {
+  background: var(--surface-white);
+  padding: 18px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+}
+
+.cover-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-md);
+}
+
+/* ================= 02 成长与周末点阵（Refactoring UI 约束） =================
+ * Constraint Brief:
+ * - Hierarchy:
+ *     Primary   -> Slide headline (--ink 700, 64px) + remaining weekends "272" (--accent 700, 52px) + active dots (--accent)
+ *     Secondary -> Centered 18x52 weekend matrix + 516/244 stats + stage labels
+ *     Tertiary  -> Legend & estimation footnote (18px, --muted)
+ * - Typography: Strictly 2 weights (500/700), 3 text colors (--ink / --body2 / --muted) + --accent.
+ * - Spacing: 8 / 16 / 24 / 36 / 56 / 80 scale; centered single-column 960px container.
+ */
+.life-slide .slide-title {
+  margin-bottom: var(--sp-4);
+}
+
+.life-grid {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.week-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.week-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.week-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.week-label {
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.week-stat.is-accent .week-label {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.week-num {
+  margin-top: 4px;
+  font-family: var(--f-num);
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 52px;
+  line-height: 1.08;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.week-num.is-past {
+  color: var(--body2);
+}
+
+.week-stat.is-accent .week-num {
+  color: var(--accent);
+}
+
+.week-unit {
+  margin-left: 4px;
+  font-family: var(--f-body);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.week-stat.is-accent .week-unit {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.week-sub {
+  margin-top: 4px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.week-stat.is-accent .week-sub {
+  color: var(--body2);
+}
+
+.dot-chart-wrap {
+  width: 100%;
+}
+
+.dot-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.dot-past {
+  fill: var(--muted);
+  opacity: 0.72;
+}
+
+.dot-left {
+  fill: var(--accent);
+}
+
+.dot-apart {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+  opacity: 0.85;
+}
+
+.dot-divider {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+  opacity: 0.72;
+}
+
+.dot-now {
+  fill: var(--accent);
+  font-family: var(--f-body);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.dot-stage {
+  fill: var(--ink);
+  font-family: var(--f-body);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.dot-stage.is-past {
+  fill: var(--muted);
+}
+
+.dot-stage.is-accent {
+  fill: var(--accent);
+}
+
+.dot-sub {
+  fill: var(--muted);
+  font-family: var(--f-body);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.dot-count {
+  fill: var(--accent);
+  font-family: var(--f-num);
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.dot-count.is-past {
+  fill: var(--muted);
+}
+
+.dot-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--line);
+}
+
+.dot-legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4);
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--body2);
+}
+
+.dot-legend-items span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.swatch-past {
+  background: var(--muted);
+  opacity: 0.72;
+}
+
+.swatch-left {
+  background: var(--accent);
+}
+
+.swatch-apart {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--line-strong);
+  background: transparent;
+}
+
+.dot-footnote {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* ================= 03 互动（先图+问，再揭晓超大答案） ================= */
+.interact-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.post-shot {
+  background: var(--surface-white);
+  padding: 14px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+}
+
+.post-shot img {
+  display: block;
+  width: 100%;
+  max-height: 680px;
+  object-fit: contain;
+  border-radius: var(--r-md);
+}
+
+.interact-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-5);
+}
+
+.interact-head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.interact-q {
+  font-family: var(--f-head);
+  font-size: 50px;
+  line-height: 1.32;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.interact-answer {
+  padding-top: var(--sp-5);
+  border-top: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.interact-answer .big-word {
+  font-family: var(--f-head);
+  font-size: 124px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+/* ================= 04 本次大纲（极简纯排版列表） ================= */
+.agenda-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.agenda-row {
+  display: grid;
+  grid-template-columns: 120px 220px minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: 46px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.agenda-row .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 34px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.agenda-row .dim {
+  font-family: var(--f-head);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.agenda-row .desc {
+  font-size: 34px;
+  line-height: 1.45;
+  color: var(--body2);
+}
+
+/* ================= 05 场景一：问题与需求推导方案（Refactoring UI 约束） =================
+ * Constraint Brief:
+ * - Hierarchy:
+ *     Primary   -> Slide headline (--ink 700, 64px) + converged solution title (--ink 700, 46px on --accent-soft + 3px --accent top border)
+ *     Secondary -> Top comparison nodes: 以前方案的问题 (--body2/--muted, 2px --line) + 真实需求 (--ink/--body2, 2px --line-strong)
+ *     Tertiary  -> Kicker "推导出的方案" (22px, --accent-ink) & steps (26px, --accent-ink); zero grey text on --accent-soft
+ * - Typography: Strictly 2 weights (400/500 & 700); max 3 text colors (--ink / --body2 / --muted) + --accent / --accent-ink.
+ * - Spacing: 8 / 16 / 24 / 36 / 56 / 80 scale; 80px horizontal column gap matches SVG centers at x=392 and x=1256 across 1648px body.
+ */
+.derive-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.derive-top {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+.derive-node {
+  padding-top: var(--sp-4);
+  border-top: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.derive-node.is-need {
+  border-top-color: var(--line-strong);
+}
+
+.derive-node h3 {
+  font-family: var(--f-head);
+  font-size: 38px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--body2);
+}
+
+.derive-node.is-need h3 {
+  color: var(--ink);
+}
+
+.clean-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.clean-list li {
+  font-size: 30px;
+  line-height: 1.55;
+  color: var(--muted);
+  padding-left: 26px;
+  position: relative;
+}
+
+.derive-node.is-need .clean-list li {
+  color: var(--body2);
+}
+
+.clean-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.derive-node.is-need .clean-list li::before {
+  background: var(--ink);
+}
+
+.derive-merge {
+  width: 100%;
+  margin: var(--sp-2) 0;
+}
+
+.derive-merge svg {
+  display: block;
+  width: 100%;
+  height: 72px;
+}
+
+.derive-merge path {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.72;
+}
+
+.derive-solution {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 56px;
+  background: var(--accent-soft);
+  border-top: 3px solid var(--accent);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.derive-kicker {
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+}
+
+.derive-title {
+  font-family: var(--f-head);
+  font-size: 46px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.derive-steps {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 4px;
+  font-size: 26px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--accent-ink);
+}
+
+.derive-steps i {
+  font-style: normal;
+  opacity: 0.65;
+}
+
+/* ================= 05 场景一：爸爸读题（大引语 + 三行节奏） ================= */
+.prompt-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.quote-surface {
+  background: var(--accent-soft);
+  border-radius: var(--r-lg);
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.quote-surface .q-text {
+  font-family: var(--f-head);
+  font-size: 58px;
+  line-height: 1.26;
+  font-weight: 700;
+  color: var(--ink);
+  text-indent: -0.5em;
+}
+
+.quote-surface .q-note {
+  font-size: 26px;
+  line-height: 1.55;
+  color: var(--accent-ink);
+}
+
+/* ================= 05 场景一：Stageshow 动画演示舞台 ================= */
+.demo-stage-wrap {
+  width: 1020px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: var(--surface-white);
+  padding: 14px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+}
+
+.demo-stage-wrap video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  background: #f8f4ed;
+}
+
+.step-lines {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.step-line {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding: 38px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.step-line .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 30px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.step-line h3 {
+  font-family: var(--f-head);
+  font-size: 38px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ================= 07 场景一：拉伸区与专用 Bot ================= */
+.stretch-top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.stretch-item h3 {
+  font-family: var(--f-head);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.stretch-item.accent h3 {
+  color: var(--accent);
+}
+
+.stretch-arrow {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.bot-split {
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.bot-split h3 {
+  font-family: var(--f-head);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+
+.bot-split .clean-list li {
+  color: var(--body2);
+}
+
+.bot-split .clean-list li::before {
+  background: var(--accent);
+}
+
+.media-mat {
+  background: var(--surface-white);
+  padding: 12px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+}
+
+.media-mat img {
+  display: block;
+  width: 100%;
+  border-radius: var(--r-md);
+}
+
+/* ================= 08 场景二：家里的玩偶（三段式递进） ================= */
+.toy-stage {
+  display: grid;
+  grid-template-columns: 800px 360px 416px;
+  gap: var(--sp-4);
+  align-items: start;
+  min-height: 0;
+}
+
+.toy-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.toy-mat {
+  background: var(--surface-white);
+  padding: 14px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+  border: 2px solid transparent;
+}
+
+.toy-col.hero .toy-mat {
+  border-color: var(--accent);
+}
+
+.toy-collage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 596px;
+}
+
+.toy-row-top {
+  display: grid;
+  grid-template-columns: 504px minmax(0, 1fr);
+  gap: 12px;
+  height: 304px;
+  min-height: 0;
+}
+
+.toy-row-bottom {
+  display: grid;
+  grid-template-columns: 324px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  height: 280px;
+  min-height: 0;
+}
+
+.toy-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  display: block;
+  min-height: 0;
+}
+
+.toy-tall {
+  height: 596px;
+  border-radius: var(--r-md);
+}
+
+.toy-pos-row { object-position: center 50%; }
+.toy-pos-dog { object-position: center 60%; }
+.toy-pos-bear { object-position: center 45%; }
+.toy-pos-pig { object-position: center 52%; }
+.toy-pos-pika { object-position: center 36%; }
+.toy-pos-bin { object-position: center 50%; }
+.toy-pos-tiger { object-position: center 52%; }
+
+.toy-cap {
+  padding: 6px 4px 0;
+  text-align: center;
+}
+
+.toy-cap h3 {
+  font-family: var(--f-head);
+  font-size: 36px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.toy-col:nth-child(2) .toy-cap h3 {
+  color: var(--body2);
+}
+
+.toy-col.hero .toy-cap h3 {
+  color: var(--accent);
+}
+
+/* ================= 08 场景二：英语动画（左竖屏 + 右三行） ================= */
+.portrait-layout {
+  display: grid;
+  grid-template-columns: 376px minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: center;
+  min-height: 0;
+}
+
+.portrait-box {
+  background: var(--surface-white);
+  padding: 14px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+}
+
+.portrait-frame {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portrait-frame video,
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slot-empty {
+  width: 100%;
+  height: 100%;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--r-md);
+}
+
+.slot-title {
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.slot-path {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 16px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.slot-pick {
+  margin-top: 4px;
+  padding: 8px 18px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.slot-pick:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ================= 09 场景二：流程与踩坑修正 ================= */
+.pipe-line {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: -32px;
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--line);
+  font-size: 27px;
+  font-weight: 700;
+  color: var(--body2);
+  flex: none;
+}
+
+.pipe-line span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.iter-layout {
+  display: grid;
+  grid-template-columns: 540px minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.compare-figs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.bear-figure {
+  background: var(--surface-white);
+  padding: 12px;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-media);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bear-figure img {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  display: block;
+}
+
+.bear-figure figcaption {
+  font-size: 19px;
+  line-height: 1.35;
+  color: var(--muted);
+  text-align: center;
+}
+
+.bear-figure.after figcaption {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ================= 09 场景三：4 步作品演进 ================= */
+.evo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.evo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.evo-media {
+  background: var(--surface-white);
+  padding: 10px;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-media);
+}
+
+.evo-media-inner {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.evo-media-inner img,
+.evo-media-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.evo-media-inner img.evo-raw {
+  object-position: 42% center;
+}
+
+.evo-media-inner .slot-empty {
+  padding: 14px;
+  gap: 8px;
+}
+
+.evo-media-inner .slot-title {
+  font-size: 20px;
+}
+
+.evo-media-inner .slot-path {
+  font-size: 14px;
+}
+
+.evo-media-inner .slot-pick {
+  font-size: 16px;
+  padding: 5px 12px;
+}
+
+.evo-cap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0 4px;
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.evo-cap span {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 22px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.evo-foot {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-6);
+}
+
+.evo-point {
+  font-family: var(--f-head);
+  font-size: 32px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ================= 12 场景三：和孩子一起改 ================= */
+.co-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.spoken-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.spoken-list li {
+  font-family: var(--f-head);
+  font-size: 42px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+  padding-left: 28px;
+  border-left: 4px solid var(--accent);
+}
+
+.co-right {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.co-right h3 {
+  font-family: var(--f-head);
+  font-size: 44px;
+  line-height: 1.38;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ================= 13 场景三：手机用于创作与学习 ================= */
+.tool-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.tool-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.big-statement {
+  font-family: var(--f-head);
+  font-size: 56px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.tool-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* ================= 14 收尾：从一个小场景开始 ================= */
+.end-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.end-right {
+  background: var(--accent-soft);
+  border-radius: var(--r-lg);
+  padding: 56px 52px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.end-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 28px;
+  line-height: 1.5;
+  color: var(--accent-ink);
+}
+
+.end-closing {
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line-strong);
+  font-family: var(--f-head);
+  font-size: 40px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ================= 14 关于我：龙海 =================
+ * Refactoring UI Constraint Brief (Workflow B):
+ * - Ranking: Primary = 龙海 (72px, 700, --ink) & X follow link (34px, 700, --accent);
+ *            Secondary = 3 bio rows (32px, 500, --ink);
+ *            Tertiary = left dt labels (21px, 500, --muted) & contact note (25px, 400, --muted).
+ * - Spacing: inner row padding 32px / CTA inner gap 14px < outer group gap 56px (--sp-5).
+ * - Tokens: --f-head, --f-body, --ink, --muted, --accent, --line, --sp-4, --sp-5 (zero grey on tinted bg).
+ */
+.about-name {
+  font-size: 72px;
+  line-height: 1.15;
+}
+
+.about-layout {
+  width: 100%;
+  max-width: 1380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.about-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-row dt {
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.about-row dd {
+  font-size: 32px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.about-cta {
+  margin-top: var(--sp-5);
+  padding: 6px 0 6px 28px;
+  border-left: 4px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-follow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 18px;
+  font-size: 34px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.about-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+  transition: opacity 0.16s var(--ease);
+}
+
+.about-link:hover {
+  opacity: 0.78;
+}
+
+.about-contact {
+  font-size: 25px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ================= 极简进度条与悬浮工具栏 ================= */
+.progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.progress i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.35s var(--ease);
+}
+
+.toolbar {
+  position: fixed;
+  bottom: 14px;
+  left: 20px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: var(--r-pill);
+  background: var(--toolbar-bg);
+  color: var(--toolbar-ink);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-ctrl);
+  font-family: var(--f-body);
+  font-size: 13px;
+  transition: opacity 0.25s var(--ease);
+}
+
+body.idle:not(.overview):not(.drawing) .toolbar,
+body.idle:not(.overview):not(.drawing) .drawing-options {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toolbar button {
+  border: 0;
+  background: transparent;
+  color: var(--toolbar-muted);
+  padding: 5px 10px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.16s, color 0.16s;
+  white-space: nowrap;
+}
+
+.toolbar button:hover {
+  color: var(--toolbar-ink);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.toolbar .sep {
+  width: 1px;
+  height: 14px;
+  background: var(--toolbar-line);
+  margin: 0 3px;
+}
+
+.toolbar .hint {
+  padding: 0 6px;
+  color: var(--toolbar-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.toolbar [data-theme-next] {
+  display: none;
+}
+
+/* ================= 画笔选项条 ================= */
+.drawing-options {
+  position: fixed;
+  bottom: 58px;
+  left: 20px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: var(--toolbar-bg);
+  color: var(--toolbar-ink);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-ctrl);
+  font-size: 13px;
+}
+
+.drawing-options[hidden] {
+  display: none;
+}
+
+.drawing-options button,
+.drawing-options select {
+  border: 1px solid var(--toolbar-line);
+  background: transparent;
+  color: var(--toolbar-ink);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.drawing-options button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.drawing-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--toolbar-muted);
+}
+
+.drawing-options input[type="color"] {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.drawing-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none;
+}
+
+body.drawing .slide.active .drawing-canvas {
+  pointer-events: auto;
+  cursor: crosshair;
+}
+
+/* ================= 总览模式（O 键） ================= */
+body.overview {
+  overflow-y: auto;
+  background: var(--frame);
+}
+
+body.overview .progress,
+body.overview .drawing-options {
+  display: none;
+}
+
+body.overview .stage {
+  position: static;
+  left: auto;
+  top: auto;
+  width: min(1440px, 100%);
+  height: auto;
+  margin: 0 auto;
+  padding: 48px 36px 88px;
+  transform: none !important;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+body.overview .ov-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+body.overview .ov-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--bg);
+  box-shadow: var(--shadow-media);
+  border: 3px solid transparent;
+  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+body.overview .ov-item:hover .ov-frame {
+  transform: translateY(-3px);
+}
+
+body.overview .ov-item.is-cur .ov-frame {
+  border-color: var(--accent);
+}
+
+body.overview .ov-label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 4px;
+}
+
+body.overview .ov-label span {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+body.overview .slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none;
+  transition: none !important;
+}
+
+body.overview .frag {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ================= 移动端适配 ================= */
+@media (max-width: 768px) {
+  .toolbar {
+    top: auto;
+    bottom: 8px;
+    right: 8px;
+    left: 8px;
+    justify-content: space-between;
+    gap: 2px;
+    padding: 5px 8px;
+  }
+
+  .toolbar .hint,
+  .toolbar .sep,
+  .toolbar [data-t],
+  .toolbar [data-fs],
+  .toolbar [data-pen] {
+    display: none;
+  }
+
+  .toolbar [data-theme-next] {
+    display: inline-flex;
+  }
+
+  .toolbar [data-counter] {
+    display: inline-flex;
+    padding: 0 4px;
+    font-size: 12px;
+  }
+
+  .drawing-options {
+    display: none !important;
+  }
+
+  body.overview .stage {
+    grid-template-columns: 1fr;
+    padding: 72px 14px 36px;
+    gap: 18px;
+  }
+}
+
+@media print {
+  body {
+    overflow: visible;
+    background: #fff;
+  }
+  .toolbar,
+  .drawing-options,
+  .progress {
+    display: none !important;
+  }
+  .stage {
+    position: static;
+    transform: none !important;
+    width: auto;
+    height: auto;
+    box-shadow: none;
+  }
+  .slide {
+    position: relative;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    page-break-after: always;
+    break-after: page;
+  }
+  .frag {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
