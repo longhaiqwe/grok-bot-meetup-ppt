@@ -1,7 +1,7 @@
 /*
- * 极简暖纸网页演示交互脚本（15 页）
- * 支持：1920×1080 等比缩放、键盘/点击/触控翻页、分步揭晓(.frag)、URL 锚点(#1-#15)、
- * 4 套主题切换(1-4)、总览模式(O)、全屏(F)、画笔批注(P)、可选素材自动探测与本地预览。
+ * 极简暖纸网页演示交互脚本（17 页）
+ * 支持：1920×1080 等比缩放、键盘/点击/触控翻页、分步揭晓(.frag)、URL 锚点(#1-#17)、
+ * 4 套主题切换(1-4)、总览模式(O)、快速跳页(G/点击页码)、全屏(F)、画笔批注(P)、可选素材自动探测与本地预览。
  */
 (() => {
   const THEMES = [
@@ -27,7 +27,7 @@
   let overviewActive = false;
 
   const CASES = [
-    { id: '1', no: '01', label: '陪伴 · 脑筋急转弯' },
+    { id: '1', no: '01', label: '互动 · 脑筋急转弯' },
     { id: '2', no: '02', label: '学习 · 英语动画' },
     { id: '3', no: '03', label: '创作 · 画作美化' }
   ];
@@ -68,7 +68,7 @@
     });
   });
 
-  // 1b. 生成第 2 页「18 岁前 936 个周末 + 18 岁后渐隐成年边界」点阵图
+  // 1b. 生成第 3 页「18 岁前 936 个周末 + 18 岁后渐隐成年边界」点阵图
   const renderWeekendChart = () => {
     const host = stage.querySelector('[data-weekend-chart]');
     if (!host) return;
@@ -317,6 +317,7 @@
   };
 
   const setDrawing = enabled => {
+    if (enabled) setJumping(false);
     finishStroke();
     isDrawing = enabled;
     document.body.classList.toggle('drawing', enabled);
@@ -325,6 +326,112 @@
     if (enabled) getAnnotation();
     updateDrawingTools();
   };
+
+  // 3b. 快速跳页（点击工具栏页码或按 G）
+  let jumping = false;
+  const jumpMenu = document.getElementById('jumpMenu');
+  const jumpForm = jumpMenu?.querySelector('[data-jump-form]');
+  const jumpInput = jumpMenu?.querySelector('[data-jump-input]');
+  const jumpTotal = jumpMenu?.querySelector('[data-jump-total]');
+  const jumpList = jumpMenu?.querySelector('[data-jump-list]');
+  const jumpItems = [];
+
+  const syncJumpList = () => {
+    jumpItems.forEach((btn, idx) => {
+      const active = idx === cur;
+      btn.classList.toggle('is-cur', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+  };
+
+  function setJumping(enabled, { focusInput = false } = {}) {
+    if (!jumpMenu) return;
+    if (enabled && isDrawing) setDrawing(false);
+    jumping = enabled;
+    document.body.classList.toggle('jumping', enabled);
+    counterEl.setAttribute('aria-expanded', String(enabled));
+    jumpMenu.hidden = !enabled;
+    if (!enabled) return;
+
+    syncJumpList();
+    if (jumpInput) {
+      jumpInput.value = '';
+      jumpInput.placeholder = pad(cur + 1);
+      if (focusInput) {
+        requestAnimationFrame(() => {
+          jumpInput.focus();
+          jumpInput.select();
+        });
+      }
+    }
+    requestAnimationFrame(() => {
+      jumpItems[cur]?.scrollIntoView({ block: 'nearest' });
+    });
+    wake?.();
+  }
+
+  const jumpTo = idx => {
+    setJumping(false);
+    if (overviewActive) setOverview(false);
+    show(idx, false);
+  };
+
+  if (jumpMenu && jumpList) {
+    if (jumpInput) jumpInput.max = String(total);
+    if (jumpTotal) jumpTotal.textContent = `/ ${pad(total)}`;
+
+    slides.forEach((slide, idx) => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'jump-item';
+      item.setAttribute('role', 'option');
+
+      const no = document.createElement('span');
+      no.className = 'no';
+      no.textContent = pad(idx + 1);
+
+      const title = document.createElement('span');
+      title.className = 'title';
+      title.textContent = slide.dataset.title || `第 ${idx + 1} 页`;
+
+      item.append(no, title);
+      item.addEventListener('click', e => {
+        e.stopPropagation();
+        jumpTo(idx);
+      });
+      jumpList.appendChild(item);
+      jumpItems.push(item);
+    });
+
+    jumpMenu.addEventListener('click', e => e.stopPropagation());
+    jumpForm?.addEventListener('submit', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const raw = parseInt(jumpInput?.value || '', 10);
+      if (Number.isInteger(raw)) {
+        jumpTo(Math.max(0, Math.min(total - 1, raw - 1)));
+      } else {
+        setJumping(false);
+      }
+    });
+    jumpInput?.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        jumpInput.blur();
+        setJumping(false);
+      }
+    });
+    counterEl.addEventListener('click', e => {
+      e.stopPropagation();
+      setJumping(!jumping, { focusInput: false });
+    });
+    document.addEventListener('pointerdown', e => {
+      if (!jumping) return;
+      if (e.target.closest('#jumpMenu, [data-counter]')) return;
+      setJumping(false);
+    });
+  }
 
   drawingOptions.addEventListener('click', e => e.stopPropagation());
   penCloseButton?.addEventListener('click', () => setDrawing(false));
@@ -389,6 +496,7 @@
     counterEl.textContent = `${pad(cur + 1)} / ${pad(total)}`;
     progressBar.style.width = `${((cur + 1) / total) * 100}%`;
     syncFragUI();
+    syncJumpList();
 
     const targetHash = `#${cur + 1}`;
     if (location.hash !== targetHash) {
@@ -456,7 +564,10 @@
   const setOverview = on => {
     if (on === overviewActive) return;
     overviewActive = on;
-    if (on) setDrawing(false);
+    if (on) {
+      setDrawing(false);
+      setJumping(false);
+    }
 
     document.body.classList.toggle('overview', on);
     toolbar.querySelector('[data-ov]')?.setAttribute('aria-pressed', String(on));
@@ -613,13 +724,19 @@
       setDrawing(!isDrawing);
       return;
     }
+    if (k === 'g' || k === 'G') {
+      e.preventDefault();
+      setJumping(!jumping, { focusInput: !jumping });
+      return;
+    }
     if (k === 'o' || k === 'O') {
       e.preventDefault();
       setOverview(!overviewActive);
       return;
     }
     if (k === 'Escape') {
-      if (isDrawing) setDrawing(false);
+      if (jumping) setJumping(false);
+      else if (isDrawing) setDrawing(false);
       else if (overviewActive) setOverview(false);
       return;
     }

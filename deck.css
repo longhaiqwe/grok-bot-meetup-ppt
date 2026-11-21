@@ -441,8 +441,11 @@ select {
 }
 
 .cover-photo {
+  width: 100%;
+  max-width: 680px;
+  justify-self: center;
   background: var(--surface-white);
-  padding: 18px;
+  padding: 16px;
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-media);
 }
@@ -450,22 +453,22 @@ select {
 .cover-photo img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: var(--r-md);
 }
 
 /* ================= 02 成长与周末点阵（Refactoring UI 约束） =================
- * Constraint Brief:
+ * Constraint Brief (Workflow C · Refine):
  * - Hierarchy:
- *     Primary   -> Slide headline (--ink 700, 64px) + remaining weekends "272" (--accent 700, 52px) + active dots (--accent)
- *     Secondary -> Centered 18x52 weekend matrix + 516/244 stats + stage labels
- *     Tertiary  -> Legend & estimation footnote (18px, --muted)
- * - Typography: Strictly 2 weights (500/700), 3 text colors (--ink / --body2 / --muted) + --accent.
- * - Spacing: 8 / 16 / 24 / 36 / 56 / 80 scale; centered single-column 960px container.
+ *     Primary   -> Slide headline (--ink 700, 64px) + remaining weekends "272个" (--accent 700, 56px) + active dots (--accent)
+ *     Secondary -> Baseline totals 516/244 (46px, --ink/--body2) + stage labels + compact swatch legend (16px, --body2)
+ *     Tertiary  -> Methodology footnote (14px, --muted) + bottom blockquote citation (--surface + 3px --line-strong, zero competing accent)
+ * - Typography: Strictly 2 weights (500/700), 3 text colors (--ink / --body2 / --muted) + --accent / --accent-ink.
+ * - Spacing: 8 / 16 / 24 / 36 / 56 / 80 scale; blockquote outer margin 16px > inner legend/footnote gap 8px.
  */
 .life-slide .slide-title {
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-3);
 }
 
 .life-grid {
@@ -479,7 +482,7 @@ select {
 .week-col {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   min-width: 0;
 }
 
@@ -487,8 +490,9 @@ select {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--sp-4);
-  padding-bottom: var(--sp-3);
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
+  align-items: end;
 }
 
 .week-stat {
@@ -497,14 +501,14 @@ select {
 }
 
 .week-label {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.3;
   font-weight: 500;
   color: var(--muted);
 }
 
 .week-stat.is-accent .week-label {
-  color: var(--accent);
+  color: var(--accent-ink);
   font-weight: 700;
 }
 
@@ -513,8 +517,8 @@ select {
   font-family: var(--f-num);
   font-style: normal;
   font-variant-numeric: tabular-nums;
-  font-size: 52px;
-  line-height: 1.08;
+  font-size: 46px;
+  line-height: 1.06;
   font-weight: 700;
   color: var(--ink);
 }
@@ -524,13 +528,14 @@ select {
 }
 
 .week-stat.is-accent .week-num {
+  font-size: 56px;
   color: var(--accent);
 }
 
 .week-unit {
   margin-left: 4px;
   font-family: var(--f-body);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
   color: var(--muted);
 }
@@ -542,7 +547,7 @@ select {
 
 .week-sub {
   margin-top: 4px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.35;
   font-weight: 500;
   color: var(--muted);
@@ -641,17 +646,25 @@ select {
 .dot-legend {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-1);
-  padding-top: var(--sp-2);
+  gap: 14px;
+  padding-top: 12px;
   border-top: 1px solid var(--line);
+}
+
+.dot-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
 }
 
 .dot-legend-items {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--sp-4);
-  font-size: 18px;
+  gap: 24px;
+  font-size: 16px;
   line-height: 1.35;
   font-weight: 500;
   color: var(--body2);
@@ -688,10 +701,60 @@ select {
 }
 
 .dot-footnote {
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.4;
   font-weight: 500;
   color: var(--muted);
+}
+
+.dot-cite {
+  margin: 0;
+  padding: 10px 16px;
+  background: var(--surface);
+  border-left: 3px solid var(--line-strong);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+
+.dot-cite-meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.dot-cite-tag {
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--body2);
+}
+
+.dot-cite-author {
+  font-size: 15px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.dot-cite-link {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--body2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 1px;
+  transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+
+.dot-cite-link:hover {
+  color: var(--accent-ink);
+  border-bottom-color: currentColor;
 }
 
 /* ================= 03 互动（先图+问，再揭晓超大答案） ================= */
@@ -721,31 +784,17 @@ select {
 .interact-right {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: var(--sp-5);
-}
-
-.interact-head {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.interact-q {
-  font-family: var(--f-head);
-  font-size: 50px;
-  line-height: 1.32;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--ink);
 }
 
 .interact-answer {
-  padding-top: var(--sp-5);
-  border-top: 2px solid var(--line);
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .interact-answer .big-word {
@@ -755,9 +804,14 @@ select {
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--accent);
+  text-align: center;
 }
 
 /* ================= 04 本次大纲（极简纯排版列表） ================= */
+.slide.agenda-slide .slide-title {
+  margin-bottom: var(--sp-4);
+}
+
 .agenda-list {
   display: flex;
   flex-direction: column;
@@ -769,7 +823,7 @@ select {
   grid-template-columns: 120px 220px minmax(0, 1fr);
   gap: var(--sp-4);
   align-items: baseline;
-  padding: 46px 0;
+  padding: 36px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -822,6 +876,8 @@ select {
   border-top: 2px solid var(--line);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: var(--sp-3);
 }
 
@@ -870,8 +926,17 @@ select {
   background: var(--line-strong);
 }
 
-.derive-node.is-need .clean-list li::before {
-  background: var(--ink);
+.derive-node .clean-list {
+  align-items: center;
+}
+
+.derive-node .clean-list li {
+  padding-left: 0;
+  text-align: center;
+}
+
+.derive-node .clean-list li::before {
+  display: none;
 }
 
 .derive-merge {
@@ -974,11 +1039,11 @@ select {
 
 /* ================= 05 场景一：Stageshow 动画演示舞台 ================= */
 .demo-stage-wrap {
-  width: 1020px;
+  width: 1110px;
   max-width: 100%;
   margin: 0 auto;
   background: var(--surface-white);
-  padding: 14px;
+  padding: 12px;
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-media);
 }
@@ -990,6 +1055,59 @@ select {
   object-fit: cover;
   border-radius: var(--r-md);
   background: #f8f4ed;
+}
+
+/* ================= 13 场景三：Bot 使用演示 + 右侧生成成品 ================= */
+.draw-use-layout {
+  width: 100%;
+  max-width: 1472px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 324px;
+  gap: 48px;
+  align-items: center;
+}
+
+.draw-use-layout .demo-stage-wrap {
+  width: 100%;
+  margin: 0;
+}
+
+.draw-out-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.draw-out-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.draw-out-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.draw-out-frame img,
+.draw-out-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.draw-out-item .evo-cap {
+  font-size: 22px;
+}
+
+.draw-out-item .evo-cap span {
+  font-size: 20px;
 }
 
 .step-lines {
@@ -1120,14 +1238,14 @@ select {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  height: 596px;
+  height: 496px;
 }
 
 .toy-row-top {
   display: grid;
   grid-template-columns: 504px minmax(0, 1fr);
   gap: 12px;
-  height: 304px;
+  height: 252px;
   min-height: 0;
 }
 
@@ -1135,7 +1253,7 @@ select {
   display: grid;
   grid-template-columns: 324px minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px;
-  height: 280px;
+  height: 232px;
   min-height: 0;
 }
 
@@ -1149,7 +1267,7 @@ select {
 }
 
 .toy-tall {
-  height: 596px;
+  height: 496px;
   border-radius: var(--r-md);
 }
 
@@ -1182,18 +1300,58 @@ select {
   color: var(--accent);
 }
 
-/* ================= 08 场景二：英语动画（左竖屏 + 右三行） ================= */
+.toy-bridge {
+  margin-top: 26px;
+  padding: 18px 28px;
+  background: var(--accent-soft);
+  border-left: 5px solid var(--accent);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.toy-bridge-kicker {
+  flex: none;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+}
+
+.toy-bridge-text {
+  font-family: var(--f-head);
+  font-size: 29px;
+  line-height: 1.38;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.toy-bridge-text em {
+  font-style: normal;
+  color: var(--accent-ink);
+}
+
+/* ================= 10 场景二：英语动画（左 Stageshow 用法演示 + 右 9:16 成片） ================= */
 .portrait-layout {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 376px minmax(0, 1fr);
-  gap: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 48px;
   align-items: center;
   min-height: 0;
 }
 
+.portrait-layout .demo-stage-wrap {
+  width: 100%;
+  margin: 0;
+}
+
 .portrait-box {
   background: var(--surface-white);
-  padding: 14px;
+  padding: 12px;
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-media);
 }
@@ -1284,13 +1442,106 @@ select {
   font-weight: 500;
 }
 
+/*
+ * Refactoring UI 约束（第 10 页等宽双栏）：
+ * - 左右两栏等宽（repeat(2, minmax(0, 1fr))，gap 72px）且上下齐平（align-items: stretch + .process-note margin-top: auto），使两栏小标题与下边界均对齐。
+ * - 左栏底部总结区：主结论 24px 700 --accent-ink，自然语言示例 22px 500 --ink，全部避开彩底灰字。
+ * - 右栏对比图限制在 500px 居中，整体高度控制在 .body 可视区安全范围内，与底部页码及工具栏留足边距。
+ */
 .iter-layout {
   display: grid;
-  grid-template-columns: 540px minmax(0, 1fr);
-  gap: var(--sp-6);
-  align-items: center;
-  flex: 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 72px;
+  align-items: stretch;
+  width: 100%;
   min-height: 0;
+}
+
+.iter-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.iter-kicker {
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--line);
+}
+
+.iter-kicker.is-accent {
+  color: var(--accent-ink);
+  border-bottom-color: var(--accent);
+}
+
+.process-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 52px 172px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.process-step .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 25px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.process-step h3 {
+  font-family: var(--f-head);
+  font-size: 32px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.process-step p {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--body2);
+}
+
+.process-note {
+  margin-top: auto;
+  padding: 18px 22px;
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.process-note-lead {
+  font-size: 23px;
+  line-height: 1.38;
+  font-weight: 700;
+  color: var(--accent-ink);
+}
+
+.process-note-ex {
+  font-size: 20px;
+  line-height: 1.48;
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .compare-figs {
@@ -1298,6 +1549,13 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
   align-items: start;
+}
+
+.iter-issues .compare-figs {
+  width: 100%;
+  max-width: 500px;
+  margin: 22px auto 0;
+  gap: 22px;
 }
 
 .bear-figure {
@@ -1308,6 +1566,11 @@ select {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.iter-issues .bear-figure {
+  padding: 10px;
+  gap: 10px;
 }
 
 .bear-figure img {
@@ -1330,22 +1593,74 @@ select {
   font-weight: 700;
 }
 
-/* ================= 09 场景三：4 步作品演进 ================= */
-.evo-grid {
+.issue-list {
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+
+.issue-item {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.issue-item .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 22px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.issue-item h3 {
+  font-family: var(--f-head);
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ================= 11 场景三：3 步作品演进（水平三连 + 箭头） ================= */
+.evo-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr) 44px minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.evo-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 38px;
+}
+
+.evo-arrow svg {
+  width: 44px;
+  height: 24px;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .evo-item {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .evo-media {
   background: var(--surface-white);
-  padding: 10px;
+  padding: 8px;
   border-radius: var(--r-md);
   box-shadow: var(--shadow-media);
 }
@@ -1391,9 +1706,10 @@ select {
 .evo-cap {
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  gap: 10px;
   padding: 0 4px;
-  font-size: 25px;
+  font-size: 23px;
+  line-height: 1.3;
   font-weight: 700;
   color: var(--ink);
 }
@@ -1402,95 +1718,226 @@ select {
   font-family: var(--f-num);
   font-style: var(--num-style);
   font-variant-numeric: tabular-nums;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: var(--num-w);
   color: var(--accent);
 }
 
-.evo-foot {
-  margin-top: var(--sp-5);
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--line);
+/* ================= 12 场景三：孩子参与 AI 制作（等宽双栏对齐） =================
+ * Refactoring UI 约束：
+ * - 与第 10 页一致采用等宽双栏 + align-items: stretch，保证左栏「共创流程」与右栏「自然语言说需求案例」上下边界严格齐平。
+ * - 右栏 4 条示例卡采用 --surface 中性暖灰底 + 4px --accent 左竖条 + --accent-ink 标签 + --ink 引语，无彩底灰字。
+ */
+.co-layout {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-6);
+  gap: 72px;
+  align-items: stretch;
+  width: 100%;
+  min-height: 0;
 }
 
-.evo-point {
+.co-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.co-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.co-step {
+  display: grid;
+  grid-template-columns: 52px 136px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.co-step .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 25px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.co-step h3 {
   font-family: var(--f-head);
   font-size: 32px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.co-step p {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--body2);
+}
+
+.co-example-list {
+  flex: 1;
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.co-ex-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 18px 24px;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+
+.co-ex-tag {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+}
+
+.co-ex-quote {
+  font-size: 24px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ================= 14 共识：什么是高质量陪伴？ =================
+ * Refactoring UI 约束：
+ * - 层级：仅保留 2 条核心定义（01/02，48px 700 --ink + 34px --accent 编号），水平居中舒展呈现。
+ */
+.companion-layout {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.companion-points {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.companion-point {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.companion-point .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 34px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.companion-point h3 {
+  font-family: var(--f-head);
+  font-size: 48px;
   line-height: 1.35;
   font-weight: 700;
   color: var(--ink);
 }
 
-/* ================= 12 场景三：和孩子一起改 ================= */
-.co-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: var(--sp-6);
-  align-items: center;
-}
-
-.spoken-list {
+/* ================= 15 总结：Grok Bot 优势与高质量陪伴 =================
+ * Refactoring UI 约束：
+ * - 层级：1/2/3 竖向细线排版（01/02/03 编号 30px --accent + 标题 38px 700 --ink + 描述 22px 500 --body2，字号比 ~1.73x）+ 底部核心收束条。
+ * - 间距：行内标题与描述间距 6px < 行间内边距 26px < 列表与底部结语外距 44px（outer > inner）；彩底内无灰字。
+ */
+.adv-layout {
+  width: 100%;
+  max-width: 1320px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 44px;
 }
 
-.spoken-list li {
+.adv-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.adv-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.adv-item .no {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 30px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.adv-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.adv-copy h3 {
   font-family: var(--f-head);
-  font-size: 42px;
+  font-size: 38px;
   line-height: 1.3;
   font-weight: 700;
   color: var(--ink);
-  padding-left: 28px;
-  border-left: 4px solid var(--accent);
 }
 
-.co-right {
-  background: var(--surface);
-  border-radius: var(--r-lg);
-  padding: 52px 48px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
+.adv-copy p {
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--body2);
 }
 
-.co-right h3 {
+.adv-closing {
+  padding: 24px 36px;
+  background: var(--accent-soft);
+  border-left: 5px solid var(--accent);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+}
+
+.adv-closing-text {
   font-family: var(--f-head);
-  font-size: 44px;
+  font-size: 36px;
   line-height: 1.38;
   font-weight: 700;
   color: var(--ink);
 }
 
-/* ================= 13 场景三：手机用于创作与学习 ================= */
-.tool-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: var(--sp-6);
-  align-items: center;
-}
-
-.tool-left {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-5);
-}
-
-.big-statement {
-  font-family: var(--f-head);
-  font-size: 56px;
-  line-height: 1.35;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.tool-right {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
+.adv-closing-text em {
+  font-style: normal;
+  color: var(--accent-ink);
 }
 
 /* ================= 14 收尾：从一个小场景开始 ================= */
@@ -1501,47 +1948,54 @@ select {
   align-items: center;
 }
 
+.end-layout .step-line {
+  padding: 30px 0;
+}
+
 .end-right {
   background: var(--accent-soft);
   border-radius: var(--r-lg);
-  padding: 56px 52px;
+  padding: 72px 52px;
+  min-height: 448px;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
-}
-
-.end-rules {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  font-size: 28px;
-  line-height: 1.5;
-  color: var(--accent-ink);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .end-closing {
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--line-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.end-closing-sub {
   font-family: var(--f-head);
-  font-size: 40px;
-  line-height: 1.3;
+  font-size: 32px;
+  line-height: 1.65;
   font-weight: 700;
   color: var(--ink);
 }
 
-/* ================= 14 关于我：龙海 =================
- * Refactoring UI Constraint Brief (Workflow B):
- * - Ranking: Primary = 龙海 (72px, 700, --ink) & X follow link (34px, 700, --accent);
- *            Secondary = 3 bio rows (32px, 500, --ink);
- *            Tertiary = left dt labels (21px, 500, --muted) & contact note (25px, 400, --muted).
- * - Spacing: inner row padding 32px / CTA inner gap 14px < outer group gap 56px (--sp-5).
- * - Tokens: --f-head, --f-body, --ink, --muted, --accent, --line, --sp-4, --sp-5 (zero grey on tinted bg).
- */
-.about-name {
-  font-size: 72px;
-  line-height: 1.15;
+.end-closing-main {
+  font-family: var(--f-head);
+  font-size: 46px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--accent-ink);
 }
 
+/* ================= 15 自我介绍：龙海 =================
+ * Refactoring UI Constraint Brief (Workflow B):
+ * - Ranking: Primary = 自我介绍 (64px, 700, --ink) & X follow link (34px, 700, --accent);
+ *            Secondary = 4 bio rows (姓名/经历/目标/产品, 32px, 500, --ink);
+ *            Tertiary = left dt labels (21px, 500, --muted) & contact note (25px, 400, --muted).
+ * - Spacing: inner row padding 28px / CTA inner gap 14px < outer group gap 56px (--sp-5).
+ * - Tokens: --f-head, --f-body, --ink, --muted, --accent, --line, --sp-4, --sp-5 (zero grey on tinted bg).
+ */
 .about-layout {
   width: 100%;
   max-width: 1380px;
@@ -1560,7 +2014,7 @@ select {
   grid-template-columns: 120px minmax(0, 1fr);
   gap: var(--sp-4);
   align-items: baseline;
-  padding: 32px 0;
+  padding: 28px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1662,7 +2116,7 @@ select {
   transition: opacity 0.25s var(--ease);
 }
 
-body.idle:not(.overview):not(.drawing) .toolbar,
+body.idle:not(.overview):not(.drawing):not(.jumping) .toolbar,
 body.idle:not(.overview):not(.drawing) .drawing-options {
   opacity: 0;
   pointer-events: none;
@@ -1680,12 +2134,29 @@ body.idle:not(.overview):not(.drawing) .drawing-options {
   white-space: nowrap;
 }
 
+.toolbar .counter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--toolbar-ink);
+}
+
+.toolbar .counter-btn::after {
+  content: '▾';
+  font-size: 10px;
+  opacity: 0.72;
+}
+
 .toolbar button:hover {
   color: var(--toolbar-ink);
   background: rgba(255, 255, 255, 0.1);
 }
 
-.toolbar button[aria-pressed="true"] {
+.toolbar button[aria-pressed="true"],
+.toolbar .counter-btn[aria-expanded="true"] {
   background: var(--accent);
   color: var(--on-accent);
 }
@@ -1768,6 +2239,160 @@ body.idle:not(.overview):not(.drawing) .drawing-options {
   height: 100%;
   z-index: 20;
   pointer-events: none;
+}
+
+/* ================= 快速跳页面板（G 键 / 点击页码） ================= */
+.jump-menu {
+  position: fixed;
+  bottom: 58px;
+  left: 20px;
+  z-index: 45;
+  width: 312px;
+  padding: 12px;
+  border-radius: var(--r-md);
+  background: linear-gradient(var(--toolbar-bg), var(--toolbar-bg)), #18181b;
+  border: 1px solid var(--toolbar-line);
+  color: var(--toolbar-ink);
+  box-shadow: var(--shadow-ctrl);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--f-body);
+}
+
+.jump-menu[hidden] {
+  display: none;
+}
+
+.jump-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--toolbar-line);
+}
+
+.jump-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--toolbar-muted);
+  white-space: nowrap;
+}
+
+.jump-input {
+  width: 68px;
+  min-width: 0;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--toolbar-line);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--toolbar-ink);
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  outline: none;
+}
+
+.jump-input:focus {
+  border-color: var(--accent);
+}
+
+.jump-input::placeholder {
+  color: var(--toolbar-muted);
+  font-weight: 400;
+}
+
+.jump-input::-webkit-inner-spin-button,
+.jump-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.jump-total {
+  font-size: 12px;
+  color: var(--toolbar-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.jump-go {
+  margin-left: auto;
+  border: 0;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.16s;
+}
+
+.jump-go:hover {
+  opacity: 0.9;
+}
+
+.jump-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: min(340px, 46vh);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.jump-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--toolbar-ink);
+  padding: 7px 9px;
+  border-radius: 9px;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  text-align: left;
+  font-family: var(--f-body);
+  font-size: 13px;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s;
+}
+
+.jump-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.jump-item .no {
+  font-family: var(--f-num);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--toolbar-muted);
+}
+
+.jump-item .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jump-item.is-cur {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+.jump-item.is-cur .no {
+  color: var(--on-accent);
+  opacity: 0.9;
+}
+
+.jump-item.is-cur:hover {
+  background: var(--accent);
 }
 
 body.drawing .slide.active .drawing-canvas {
@@ -1893,8 +2518,15 @@ body.overview .frag {
 
   .toolbar [data-counter] {
     display: inline-flex;
-    padding: 0 4px;
+    padding: 5px 8px;
     font-size: 12px;
+  }
+
+  .jump-menu {
+    left: 8px;
+    right: 8px;
+    bottom: 56px;
+    width: auto;
   }
 
   .drawing-options {
@@ -1915,6 +2547,7 @@ body.overview .frag {
   }
   .toolbar,
   .drawing-options,
+  .jump-menu,
   .progress {
     display: none !important;
   }

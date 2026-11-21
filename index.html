@@ -13,10 +13,18 @@
 
 <div class="toolbar" role="toolbar" aria-label="演示控制">
   <button type="button" data-prev aria-label="上一页">‹</button>
-  <span class="hint" data-counter>01 / 15</span>
+  <button
+    type="button"
+    class="counter-btn"
+    data-counter
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="jumpMenu"
+    title="点击或按 G 快速跳页"
+  >01 / 17</button>
   <button type="button" data-next aria-label="下一页">›</button>
   <span class="sep" aria-hidden="true"></span>
-  <span class="hint" data-hint>← → 翻页</span>
+  <span class="hint" data-hint>← → 翻页 · G 跳页</span>
 </div>
 
 <main class="stage" id="stage">
@@ -33,12 +41,31 @@
       </div>
 
       <div class="cover-photo a">
-        <img src="assets/matryoshka-3d.png" alt="女儿手绘的俄罗斯套娃 3D 造型图">
+        <img src="assets/cover-daughter.jpg" alt="5 岁女儿的实拍生活照，穿白色外套与红色小猫上衣">
       </div>
     </div>
   </section>
 
-  <!-- ================= 02 成长与周末：5 岁之后还剩多少 ================= -->
+  <!-- ================= 02 互动：先问后答 ================= -->
+  <section class="slide" data-title="开放讨论：育儿第一性原理是什么？">
+    <h2 class="slide-title a">开放讨论：<em>育儿第一性原理是什么？</em></h2>
+
+    <div class="body">
+      <div class="interact-grid">
+        <div class="post-shot a">
+          <img src="assets/opening-question.png" alt="关于育儿第一性原理的长文截图">
+        </div>
+
+        <div class="interact-right">
+          <div class="interact-answer frag">
+            <div class="big-word">高质量陪伴</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 成长与周末：5 岁之后还剩多少 ================= -->
   <section class="slide life-slide" data-title="周末陪伴倒计时">
     <h2 class="slide-title a">从出生到 5 岁，<em>能陪她的周末已过近半</em></h2>
 
@@ -68,34 +95,28 @@
           </div>
 
           <div class="dot-legend">
-            <div class="dot-legend-items">
-              <span><i class="swatch swatch-past" aria-hidden="true"></i>0–5 岁已陪伴（244）</span>
-              <span><i class="swatch swatch-left" aria-hidden="true"></i>5 岁后还剩（272）</span>
-              <span><i class="swatch swatch-apart" aria-hidden="true"></i>长大不再同行</span>
+            <div class="dot-legend-row">
+              <div class="dot-legend-items">
+                <span><i class="swatch swatch-past" aria-hidden="true"></i>0–5 岁已陪伴（244）</span>
+                <span><i class="swatch swatch-left" aria-hidden="true"></i>5 岁后还剩（272）</span>
+                <span><i class="swatch swatch-apart" aria-hidden="true"></i>长大不再同行</span>
+              </div>
+              <p class="dot-footnote">1 行 = 52 周 · 18 岁前按阶段递减估算，18 岁后渐隐示意</p>
             </div>
-            <p class="dot-footnote">1 行 = 52 周 · 18 岁前按阶段递减估算，18 岁后渐隐示意</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= 03 互动：先问后答 ================= -->
-  <section class="slide" data-title="开放讨论">
-    <h2 class="slide-title a">开放讨论</h2>
-
-    <div class="body">
-      <div class="interact-grid">
-        <div class="post-shot a">
-          <img src="assets/opening-question.png" alt="关于育儿第一性原理的长文截图">
-        </div>
-
-        <div class="interact-right">
-          <div class="interact-head a">
-            <h3 class="interact-q">你觉得，育儿的<br>第一性原理是什么？</h3>
-          </div>
-          <div class="interact-answer frag">
-            <div class="big-word">高质量陪伴</div>
+            <blockquote class="dot-cite">
+              <span class="dot-cite-meta">
+                <span class="dot-cite-tag">灵感来源</span>
+                <span class="dot-cite-author">X · @thomaszhou_</span>
+              </span>
+              <a
+                class="dot-cite-link"
+                href="https://x.com/thomaszhou_/status/2120048570443395161"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-no-nav
+              >https://x.com/thomaszhou_/status/2120048570443395161</a>
+            </blockquote>
           </div>
         </div>
       </div>
@@ -103,20 +124,20 @@
   </section>
 
   <!-- ================= 04 本次大纲 ================= -->
-  <section class="slide" data-title="三个实例">
-    <h2 class="slide-title a">三个实例</h2>
+  <section class="slide agenda-slide" data-title="三个案例">
+    <h2 class="slide-title a">三个案例：<br><em>如何让 Grok Bot 帮助我们更高质量地陪伴孩子？</em></h2>
 
     <div class="body">
       <div class="agenda-list st">
         <div class="agenda-row">
           <span class="no">01</span>
-          <span class="dim">陪伴</span>
-          <span class="desc">睡前脑筋急转弯，一起猜题</span>
+          <span class="dim">互动</span>
+          <span class="desc">睡前脑筋急转弯，我来出题她来猜</span>
         </div>
         <div class="agenda-row">
           <span class="no">02</span>
           <span class="dim">学习</span>
-          <span class="desc">和喜欢的玩偶一起学英语</span>
+          <span class="desc">让孩子在动画中和喜欢的玩偶一起学英语</span>
         </div>
         <div class="agenda-row">
           <span class="no">03</span>
@@ -128,8 +149,8 @@
   </section>
 
   <!-- ================= 05 场景一：需求与方案推导 ================= -->
-  <section class="slide derive-slide" data-title="脑筋急转弯 · 方案推导" data-case="1">
-    <h2 class="slide-title a">睡前脑筋急转弯：<em>从需求推导出方案</em></h2>
+  <section class="slide derive-slide" data-title="脑筋急转弯 · 从需求到方案" data-case="1">
+    <h2 class="slide-title a">脑筋急转弯：<em>从需求到方案</em></h2>
 
     <div class="body">
       <div class="derive-layout">
@@ -137,7 +158,7 @@
           <div class="derive-node">
             <h3>以前方案的问题</h3>
             <ul class="clean-list">
-              <li>网上搜：质量不稳</li>
+              <li>网上搜：质量太差</li>
               <li>买整本书：不适龄</li>
             </ul>
           </div>
@@ -145,8 +166,8 @@
           <div class="derive-node is-need">
             <h3>真实需求</h3>
             <ul class="clean-list">
-              <li>睡前一起猜，要好玩</li>
-              <li>5 岁能听懂，量刚好</li>
+              <li>题目要好玩</li>
+              <li>5 岁能听懂</li>
             </ul>
           </div>
         </div>
@@ -174,15 +195,15 @@
     </div>
   </section>
 
-  <!-- ================= 06 场景一：现场出题与改写（Stageshow 动画演示） ================= -->
-  <section class="slide" data-title="现场出题与改写" data-case="1">
-    <h2 class="slide-title a">用 Grok Bot 现场出题，<em>听不懂当场改写</em></h2>
+  <!-- ================= 06 场景一：Bot 制作过程（Stageshow 动画演示） ================= -->
+  <section class="slide" data-title="低成本满足需求" data-case="1">
+    <h2 class="slide-title a">使用 Grok Bot <em>低成本满足需求</em></h2>
 
     <div class="body">
       <div class="demo-stage-wrap a" data-no-nav>
         <video
-          src="assets/riddle-stageshow.mp4"
-          poster="assets/riddle-stageshow-poster.jpg"
+          src="assets/riddle-build-stageshow.mp4"
+          poster="assets/riddle-build-stageshow-poster.jpg"
           controls
           muted
           playsinline
@@ -194,33 +215,22 @@
     </div>
   </section>
 
-  <!-- ================= 07 场景一：搭配难度与专用 Bot ================= -->
-  <section class="slide" data-title="难度与专用 Bot" data-case="1">
-    <h2 class="slide-title a">搭配难度出题，<em>做成专用 Bot 复用</em></h2>
+  <!-- ================= 07 场景一：使用过程与方案优势（Stageshow 动画演示） ================= -->
+  <section class="slide" data-title="Grok Bot 方案优势：随时定制需求" data-case="1">
+    <h2 class="slide-title a">Grok Bot 方案优势：<em>随时定制需求</em></h2>
 
     <div class="body">
-      <div class="stretch-top st">
-        <div class="stretch-item">
-          <h3>熟悉的题</h3>
-        </div>
-        <div class="stretch-arrow frag" data-step="1" aria-hidden="true">→</div>
-        <div class="stretch-item accent frag" data-step="1">
-          <h3>稍难的题（拉伸区）</h3>
-        </div>
-      </div>
-
-      <div class="bot-split frag" data-step="2">
-        <div>
-          <h3>做成专用 Bot</h3>
-          <ul class="clean-list">
-            <li>固定出题规则</li>
-            <li>记录已出旧题</li>
-            <li>隔几天复习不重题</li>
-          </ul>
-        </div>
-        <div class="media-mat">
-          <img src="assets/riddle-bot.png" alt="脑筋急转弯专用 Grok Bot 插图">
-        </div>
+      <div class="demo-stage-wrap a" data-no-nav>
+        <video
+          src="assets/riddle-use-stageshow.mp4"
+          poster="assets/riddle-use-stageshow-poster.jpg"
+          controls
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          data-autoplay
+        ></video>
       </div>
     </div>
   </section>
@@ -268,15 +278,102 @@
           </div>
         </div>
       </div>
+
+      <div class="toy-bridge frag" data-step="3">
+        <span class="toy-bridge-kicker">想法推导</span>
+        <p class="toy-bridge-text">把她偏爱的玩偶和孩子一起放进英语视频里互动，<em>让学习变得更有趣</em></p>
+      </div>
     </div>
   </section>
 
-  <!-- ================= 09 场景二：玩偶英语动画 ================= -->
-  <section class="slide" data-title="玩偶英语动画" data-case="2">
-    <h2 class="slide-title a">用她喜欢的玩偶，<em>做成 48 秒英语动画</em></h2>
+  <!-- ================= 09 场景二：使用 Grok Bot 实现与优化 ================= -->
+  <section class="slide" data-title="Grok Bot 实现与优化" data-case="2">
+    <h2 class="slide-title a">使用 Grok Bot <em>实现与优化</em></h2>
+
+    <div class="body">
+      <div class="iter-layout st">
+        <div class="iter-col iter-process">
+          <div class="iter-kicker">实现过程</div>
+          <ol class="process-steps">
+            <li class="process-step">
+              <span class="no">01</span>
+              <h3>故事和台词</h3>
+              <p>水果主题 · 简单双语对话</p>
+            </li>
+            <li class="process-step">
+              <span class="no">02</span>
+              <h3>角色参考</h3>
+              <p>玩偶与女儿照片 · 锁定形象</p>
+            </li>
+            <li class="process-step">
+              <span class="no">03</span>
+              <h3>分镜画面</h3>
+              <p>按台词拆镜头 · 保持角色一致</p>
+            </li>
+            <li class="process-step">
+              <span class="no">04</span>
+              <h3>配音字幕</h3>
+              <p>英文配音 · 双语字幕对齐</p>
+            </li>
+            <li class="process-step">
+              <span class="no">05</span>
+              <h3>合成成片</h3>
+              <p>自动剪辑 · 输出 48 秒动画</p>
+            </li>
+          </ol>
+          <div class="process-note">
+            <p class="process-note-lead">实现过程很复杂，但用自然语言提出诉求就可以</p>
+            <p class="process-note-ex">制作一个 Bot，我会给你孩子和玩偶图片，你做一个介绍常见水果的英语动画，动画中孩子和玩偶通过对话一起学习这些英语，不要重复词汇</p>
+          </div>
+        </div>
+
+        <div class="iter-col iter-issues frag" data-step="1">
+          <div class="iter-kicker is-accent">遇到的问题与优化</div>
+          <div class="compare-figs">
+            <figure class="bear-figure">
+              <img src="assets/bear-mistake.jpg" alt="第一版把老虎画成黄色小熊的真实截帧">
+              <figcaption>第一版：老虎画成了熊</figcaption>
+            </figure>
+            <figure class="bear-figure after">
+              <img src="assets/dudu-english-poster.jpg" alt="补参考图后改回的嘟嘟虎和女儿卡通形象">
+              <figcaption>改回后：嘟嘟虎 + 女儿</figcaption>
+            </figure>
+          </div>
+
+          <div class="issue-list">
+            <div class="issue-item">
+              <span class="no">01</span>
+              <h3>老虎画成熊 → 补参考图，要求一定要像参考图</h3>
+            </div>
+            <div class="issue-item">
+              <span class="no">02</span>
+              <h3>反复微调 → 女儿能认出自己</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 10 场景二：玩偶英语动画（使用与成品） ================= -->
+  <section class="slide portrait-slide" data-title="玩偶英语动画" data-case="2">
+    <h2 class="slide-title a">寓教于乐，<em>用她喜欢的玩偶做成英语动画</em></h2>
 
     <div class="body">
       <div class="portrait-layout st">
+        <div class="demo-stage-wrap" data-no-nav>
+          <video
+            src="assets/english-use-stageshow.mp4"
+            poster="assets/english-use-stageshow-poster.jpg"
+            controls
+            muted
+            playsinline
+            loop
+            preload="metadata"
+            data-autoplay
+          ></video>
+        </div>
+
         <div class="portrait-box" data-no-nav>
           <div class="portrait-frame">
             <video
@@ -288,72 +385,13 @@
             ></video>
           </div>
         </div>
-
-        <div class="step-lines">
-          <div class="step-line">
-            <span class="no">01</span>
-            <div>
-              <h3>选她最喜欢的嘟嘟虎</h3>
-            </div>
-          </div>
-          <div class="step-line">
-            <span class="no">02</span>
-            <div>
-              <h3>把水果英语放进故事里</h3>
-            </div>
-          </div>
-          <div class="step-line">
-            <span class="no">03</span>
-            <div>
-              <h3>同套角色延伸做绘本</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 10 场景二：制作过程与修改 ================= -->
-  <section class="slide" data-title="制作过程与修改" data-case="2">
-    <h2 class="slide-title a">补参考图迭代，<em>把动画角色改像</em></h2>
-    <div class="pipe-line a">
-      故事和台词 <span>→</span> 角色参考 <span>→</span> 分镜 <span>→</span> 配音字幕 <span>→</span> 成片
-    </div>
-
-    <div class="body">
-      <div class="iter-layout st">
-        <div class="compare-figs">
-          <figure class="bear-figure">
-            <img src="assets/bear-mistake.jpg" alt="第一版把老虎画成黄色小熊的真实截帧">
-            <figcaption>第一版：老虎画成了熊</figcaption>
-          </figure>
-          <figure class="bear-figure after">
-            <img src="assets/dudu-english-poster.jpg" alt="补参考图后改回的嘟嘟虎和女儿卡通形象">
-            <figcaption>改回后：嘟嘟虎 + 女儿</figcaption>
-          </figure>
-        </div>
-
-        <div class="step-lines">
-          <div class="step-line">
-            <span class="no">01</span>
-            <div>
-              <h3>老虎画成熊 → 补玩偶参考图</h3>
-            </div>
-          </div>
-          <div class="step-line frag" data-step="1">
-            <span class="no">02</span>
-            <div>
-              <h3>反复微调 → 女儿能认出自己</h3>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- ================= 11 场景三：从她的一张画开始 ================= -->
-  <section class="slide" data-title="从一张画到动画" data-case="3">
-    <h2 class="slide-title a">把孩子手绘原画，<em>做成 6 秒打招呼动画</em></h2>
+  <section class="slide evo-slide" data-title="从一张画到动画" data-case="3">
+    <h2 class="slide-title a">把孩子手绘原画，<em>做成 3D 和动画</em></h2>
 
     <div class="body">
       <div class="evo-grid st">
@@ -366,13 +404,11 @@
           <div class="evo-cap"><span>01</span> 原画</div>
         </div>
 
-        <div class="evo-item">
-          <div class="evo-media">
-            <div class="evo-media-inner">
-              <img src="assets/matryoshka-2d.png" alt="俄罗斯套娃平面精修图">
-            </div>
-          </div>
-          <div class="evo-cap"><span>02</span> 平面精修</div>
+        <div class="evo-arrow frag" data-step="1" aria-hidden="true">
+          <svg viewBox="0 0 44 24" fill="none">
+            <path d="M 2 12 H 38" />
+            <path d="M 30 5 L 39 12 L 30 19" />
+          </svg>
         </div>
 
         <div class="evo-item frag" data-step="1">
@@ -381,7 +417,14 @@
               <img src="assets/matryoshka-3d.png" alt="俄罗斯套娃 3D 造型图">
             </div>
           </div>
-          <div class="evo-cap"><span>03</span> 3D 造型</div>
+          <div class="evo-cap"><span>02</span> 3D 造型</div>
+        </div>
+
+        <div class="evo-arrow frag" data-step="1" aria-hidden="true">
+          <svg viewBox="0 0 44 24" fill="none">
+            <path d="M 2 12 H 38" />
+            <path d="M 30 5 L 39 12 L 30 19" />
+          </svg>
         </div>
 
         <div class="evo-item frag" data-step="1" data-no-nav>
@@ -390,61 +433,187 @@
               <video src="assets/matryoshka-hello.mp4" poster="assets/matryoshka-hello-poster.jpg" controls playsinline loop preload="metadata"></video>
             </div>
           </div>
-          <div class="evo-cap"><span>04</span> 6 秒动画</div>
+          <div class="evo-cap"><span>03</span> 6 秒动画</div>
         </div>
-      </div>
-
-      <div class="evo-foot frag" data-step="2">
-        <div class="evo-point">保留原画细节与署名「龙游七」</div>
-        <div class="evo-point">只给最大套娃加一只小手</div>
       </div>
     </div>
   </section>
 
-  <!-- ================= 12 场景三：和孩子一起改 ================= -->
-  <section class="slide" data-title="和孩子一起改" data-case="3">
-    <h2 class="slide-title a">和孩子一起看结果、<em>一起提修改</em></h2>
-    <div class="pipe-line a">
-      说想法 <span>→</span> 选角色 <span>→</span> 选动作 <span>→</span> 看结果 <span>→</span> 提修改
+  <!-- ================= 12 场景三：儿童画焕新 Bot 使用过程（Stageshow 动画 + 成品展示） ================= -->
+  <section class="slide" data-title="发张画就能生成 3D 和动画" data-case="3">
+    <h2 class="slide-title a">用 Grok Bot 玩起来：<em>发张画就能生成 3D 和动画</em></h2>
+
+    <div class="body">
+      <div class="draw-use-layout st">
+        <div class="demo-stage-wrap" data-no-nav>
+          <video
+            src="assets/draw-use-stageshow.mp4"
+            poster="assets/draw-use-stageshow-poster.jpg"
+            controls
+            muted
+            playsinline
+            loop
+            preload="metadata"
+            data-autoplay
+          ></video>
+        </div>
+
+        <div class="draw-out-col">
+          <div class="draw-out-item">
+            <div class="evo-media">
+              <div class="draw-out-frame">
+                <img src="assets/seahorse-3d.jpg" alt="海马画作生成的 3D 造型">
+              </div>
+            </div>
+            <div class="evo-cap"><span>01</span>3D 造型</div>
+          </div>
+
+          <div class="draw-out-item">
+            <div class="evo-media">
+              <div class="draw-out-frame" data-no-nav>
+                <video
+                  src="assets/seahorse-anim.mp4"
+                  poster="assets/seahorse-anim-poster.jpg"
+                  controls
+                  muted
+                  playsinline
+                  loop
+                  preload="metadata"
+                  data-autoplay
+                ></video>
+              </div>
+            </div>
+            <div class="evo-cap"><span>02</span>6 秒动画</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- ================= 13 场景三：孩子深度参与制作 ================= -->
+  <section class="slide" data-title="孩子深度参与制作" data-case="3">
+    <h2 class="slide-title a">孩子<em>深度参与制作</em></h2>
 
     <div class="body">
       <div class="co-layout st">
-        <ul class="spoken-list">
-          <li>「你想让哪只套娃动？」</li>
-          <li>「挥手，还是转一圈？」</li>
-          <li>「哪里还想改？」</li>
-        </ul>
+        <div class="co-col co-flow">
+          <div class="iter-kicker">共创流程</div>
+          <ol class="co-steps">
+            <li class="co-step">
+              <span class="no">01</span>
+              <h3>说想法</h3>
+              <p>拿孩子画的纸，先定想做成什么</p>
+            </li>
+            <li class="co-step">
+              <span class="no">02</span>
+              <h3>选角色</h3>
+              <p>挑出画面主角，保留原画特征与署名</p>
+            </li>
+            <li class="co-step">
+              <span class="no">03</span>
+              <h3>选动作</h3>
+              <p>让孩子选挥手、转身或打招呼动作</p>
+            </li>
+            <li class="co-step">
+              <span class="no">04</span>
+              <h3>看结果</h3>
+              <p>生成 3D 图和动画后，跟孩子一起看</p>
+            </li>
+            <li class="co-step">
+              <span class="no">05</span>
+              <h3>提修改</h3>
+              <p>哪处不满意，用大白话接着改下一版</p>
+            </li>
+          </ol>
+        </div>
 
-        <div class="co-right frag" data-step="1">
-          <h3>家长操作，孩子来选、来看、来改</h3>
+        <div class="co-col co-examples">
+          <div class="iter-kicker is-accent">自然语言说需求案例</div>
+          <div class="co-example-list">
+            <div class="co-ex-card">
+              <span class="co-ex-tag">精修原画</span>
+              <p class="co-ex-quote">「把拍歪的原画拉正做清晰，保留上面手写的字」</p>
+            </div>
+            <div class="co-ex-card">
+              <span class="co-ex-tag">做成 3D</span>
+              <p class="co-ex-quote">「保留原画细节和署名「龙游艺」，把套娃做成 3D」</p>
+            </div>
+            <div class="co-ex-card">
+              <span class="co-ex-tag">加上动作</span>
+              <p class="co-ex-quote">「只给最大那只套娃加一只小手，挥手打招呼」</p>
+            </div>
+            <div class="co-ex-card">
+              <span class="co-ex-tag">继续微调</span>
+              <p class="co-ex-quote">「另外三只不用动，把动作放慢一点重新生成」</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= 13 场景三：手机用于创作与学习 ================= -->
-  <section class="slide" data-title="手机用于创作与学习" data-case="3">
-    <h2 class="slide-title a">把手机变成<em>创作和学习工具</em></h2>
+  <!-- ================= 14 共识：什么是高质量陪伴？ ================= -->
+  <section class="slide" data-title="什么是高质量陪伴？">
+    <h2 class="slide-title a">什么是<em>高质量陪伴？</em></h2>
 
     <div class="body">
-      <div class="tool-layout st">
-        <div class="tool-left">
-          <p class="big-statement">用来画画、创作、学习，把自己的想法做出来。</p>
-        </div>
-
-        <figure class="tool-right">
-          <div class="media-mat">
-            <img src="assets/matryoshka-3d.png" alt="3D 造型俄罗斯套娃">
+      <div class="companion-layout st">
+        <div class="companion-points">
+          <div class="companion-point">
+            <span class="no">01</span>
+            <h3>注意力完全在孩子身上</h3>
           </div>
-        </figure>
+          <div class="companion-point">
+            <span class="no">02</span>
+            <h3>双方有真实的来回互动</h3>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= 14 收尾：从一个小场景开始 ================= -->
+  <!-- ================= 15 总结：Grok Bot 优势与高质量陪伴 ================= -->
+  <section class="slide" data-title="Grok Bot 优势 · 高质量陪伴">
+    <h2 class="slide-title a">让 Grok Bot 帮助我们<em>更高质量地陪伴孩子</em></h2>
+
+    <div class="body">
+      <div class="adv-layout st">
+        <div class="adv-list">
+          <div class="adv-item">
+            <span class="no">01</span>
+            <div class="adv-copy">
+              <h3>实现需求变得空前容易</h3>
+              <p>不必学剪辑或写代码，找素材、出图、做动画都能省下准备时间。</p>
+            </div>
+          </div>
+
+          <div class="adv-item">
+            <span class="no">02</span>
+            <div class="adv-copy">
+              <h3>可以在使用过程中快速迭代</h3>
+              <p>孩子听不懂、形象不对或想改玩法，对话里补充一句就能当场重做。</p>
+            </div>
+          </div>
+
+          <div class="adv-item">
+            <span class="no">03</span>
+            <div class="adv-copy">
+              <h3>能实现的场景变得越来越多</h3>
+              <p>睡前问答、双语动画到画作重制，一个想法就能沉淀成专用工具。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="adv-closing">
+          <p class="adv-closing-text">以上的门槛都极低，<em>仅仅用自然语言描述即可</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 16 收尾：从一个小场景开始 ================= -->
   <section class="slide" data-title="从一个小场景开始">
-    <h2 class="slide-title a">复刻做法：<em>从一个小场景开始</em></h2>
+    <h2 class="slide-title a">从<em>一个小场景</em>开始</h2>
 
     <div class="body">
       <div class="end-layout st">
@@ -453,54 +622,56 @@
             <div class="step-line">
               <span class="no">01</span>
               <div>
-                <h3>说清年龄、兴趣和玩法</h3>
+                <h3>提供背景、说清楚需求</h3>
               </div>
             </div>
             <div class="step-line">
               <span class="no">02</span>
               <div>
-                <h3>按反应迭代，沉淀为专用 Bot</h3>
+                <h3>初始版本、沉淀为 Bot</h3>
               </div>
             </div>
             <div class="step-line">
               <span class="no">03</span>
               <div>
-                <h3>延伸尝试：折纸、练习纸、儿歌</h3>
+                <h3>快速迭代、不断优化</h3>
               </div>
             </div>
           </div>
         </div>
 
         <div class="end-right frag" data-step="1">
-          <div class="end-rules">
-            <p>家长一起参与和检查</p>
-            <p>控制屏幕时间</p>
-            <p>保护孩子隐私</p>
+          <div class="end-closing">
+            <p class="end-closing-sub">请别让 AI 把孩子从我们身边推开<br>让 AI 帮助我们更好的陪伴孩子</p>
+            <p class="end-closing-main">你的陪伴无可替代</p>
           </div>
-          <div class="end-closing">AI 帮忙准备和制作，<br>不替代陪伴。</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= 15 关于我：龙海 ================= -->
-  <section class="slide" data-title="关于我 · 龙海">
-    <h2 class="slide-title about-name a">龙海</h2>
+  <!-- ================= 17 自我介绍：龙海 ================= -->
+  <section class="slide" data-title="自我介绍 · 龙海">
+    <h2 class="slide-title a">自我介绍</h2>
 
     <div class="body">
       <div class="about-layout st">
         <dl class="about-list">
+          <div class="about-row">
+            <dt>姓名</dt>
+            <dd>龙海</dd>
+          </div>
           <div class="about-row">
             <dt>经历</dt>
             <dd>前大厂程序员 → 项目经理 → 产品经理，目前 OPC（一人公司）实践中</dd>
           </div>
           <div class="about-row">
             <dt>目标</dt>
-            <dd>立志成为 X 上最会找痛点的男人</dd>
+            <dd>AI 生活家 ｜ 用 AI 解决生活中的痛点</dd>
           </div>
           <div class="about-row">
             <dt>产品</dt>
-            <dd>拾音 FM<span class="about-sep" aria-hidden="true">｜</span>中国故事<span class="about-sep" aria-hidden="true">｜</span>OhMyX<span class="about-sep" aria-hidden="true">｜</span>OhMyTab</dd>
+            <dd>拾音 FM<span class="about-sep" aria-hidden="true">｜</span>中国故事<span class="about-sep" aria-hidden="true">｜</span>OhMyX<span class="about-sep" aria-hidden="true">｜</span>PinSnip</dd>
           </div>
         </dl>
 
@@ -537,6 +708,25 @@
   <button type="button" data-undo disabled>撤销</button>
   <button type="button" data-clear disabled>清空本页</button>
   <button type="button" data-pen-close>退出 Esc</button>
+</div>
+
+<div class="jump-menu" id="jumpMenu" role="dialog" aria-label="快速跳转页面" hidden>
+  <form class="jump-form" data-jump-form novalidate>
+    <label class="jump-label" for="jumpInput">跳至</label>
+    <input
+      id="jumpInput"
+      class="jump-input"
+      type="number"
+      inputmode="numeric"
+      min="1"
+      max="17"
+      placeholder="页码"
+      data-jump-input
+    >
+    <span class="jump-total" data-jump-total>/ 17</span>
+    <button type="submit" class="jump-go">跳转</button>
+  </form>
+  <div class="jump-list" data-jump-list role="listbox" aria-label="幻灯片目录"></div>
 </div>
 
 <script src="deck.js"></script>
