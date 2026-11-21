@@ -470,7 +470,7 @@ select {
 
 .life-grid {
   width: 100%;
-  max-width: 960px;
+  max-width: 940px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -479,7 +479,7 @@ select {
 .week-col {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
+  gap: 20px;
   min-width: 0;
 }
 
@@ -585,6 +585,17 @@ select {
   stroke-dasharray: 5 5;
   opacity: 0.72;
 }
+
+.dot-divider-adult {
+  stroke: var(--line-strong);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 4;
+  opacity: 0.75;
+}
+
+.dot-fade-1 { opacity: 0.72; }
+.dot-fade-2 { opacity: 0.44; }
+.dot-fade-3 { opacity: 0.22; }
 
 .dot-now {
   fill: var(--accent);

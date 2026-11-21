@@ -68,7 +68,7 @@
     });
   });
 
-  // 1b. 生成第 2 页「18 岁前 936 个周末」点阵图（18 行 × 52 列）
+  // 1b. 生成第 2 页「18 岁前 936 个周末 + 18 岁后渐隐成年边界」点阵图
   const renderWeekendChart = () => {
     const host = stage.querySelector('[data-weekend-chart]');
     if (!host) return;
@@ -80,11 +80,11 @@
       { label: '初中', sub: '12–15 岁', count: '36 周', state: 'left', accent: false, rows: [16, 12, 8] },
       { label: '高中', sub: '15–18 岁', count: '12 周', state: 'left', accent: false, rows: [6, 4, 2] }
     ];
-    const extraGapAfter = [0, 30, 8, 12, 12];
+    const extraGapAfter = [0, 26, 8, 10, 10, 20];
     const x0 = 96;
     const dx = 13.8;
-    const dy = 20;
-    const yStart = 18;
+    const dy = 18;
+    const yStart = 14;
     const ns = 'http://www.w3.org/2000/svg';
     const el = (tag, attrs, text) => {
       const node = document.createElementNS(ns, tag);
@@ -95,9 +95,9 @@
 
     const svg = el('svg', {
       class: 'dot-svg',
-      viewBox: '0 0 928 438',
+      viewBox: '0 0 928 462',
       role: 'img',
-      'aria-label': '18 岁前 936 个周末点阵图：0 到 5 岁已陪伴 244 个，5 岁之后剩余陪伴 272 个，长大后不再同行 420 个'
+      'aria-label': '18 岁前 936 个周末与 18 岁后成年边界点阵图：0 到 5 岁已陪伴 244 个，5 岁之后剩余陪伴 272 个，长大不再同行 420 个；18 岁之后离家成年共同周末几乎归零'
     });
 
     let y = yStart;
@@ -137,6 +137,26 @@
         y += dy + extraGapAfter[gi + 1];
       }
     });
+
+    // 18 岁成年边界 + 3 行渐隐空心点（示意成年后共同周末几乎归零）
+    const adultDivY = y + (dy + extraGapAfter[5]) / 2;
+    svg.appendChild(el('line', { class: 'dot-divider-adult', x1: 88, y1: adultDivY, x2: 808, y2: adultDivY }));
+
+    let adultY = y + dy + extraGapAfter[5];
+    const adultFirst = adultY;
+    for (let row = 0; row < 3; row++) {
+      const fadeGroup = el('g', { class: `dot-fade-${row + 1}` });
+      for (let col = 0; col < 52; col++) {
+        const cx = (x0 + col * dx).toFixed(1);
+        fadeGroup.appendChild(el('circle', { class: 'dot-apart dot-adult', cx, cy: adultY, r: '3.6' }));
+      }
+      svg.appendChild(fadeGroup);
+      if (row < 2) adultY += dy;
+    }
+    const adultMid = (adultFirst + adultY) / 2;
+    svg.appendChild(el('text', { class: 'dot-stage is-past', x: 78, y: adultMid - 10, 'text-anchor': 'end', 'dominant-baseline': 'central' }, '18 岁后'));
+    svg.appendChild(el('text', { class: 'dot-sub', x: 78, y: adultMid + 10, 'text-anchor': 'end', 'dominant-baseline': 'central' }, '离家 · 成年'));
+    svg.appendChild(el('text', { class: 'dot-count is-past', x: 822, y: adultMid, 'text-anchor': 'start', 'dominant-baseline': 'central' }, '几乎归零'));
 
     host.innerHTML = '';
     host.appendChild(svg);
