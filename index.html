@@ -41,7 +41,7 @@
       </div>
 
       <div class="cover-photo a">
-        <img src="assets/cover-daughter.jpg" alt="5 岁女儿的实拍生活照，穿白色外套与红色小猫上衣">
+        <img src="assets/cover-daughter-5.jpg" alt="5 岁女儿生日照：在温暖阳光工作室背景前比出数字 5，身前摆放粉色 5 字大气球">
       </div>
     </div>
   </section>
@@ -154,6 +154,11 @@
 
     <div class="body">
       <div class="derive-layout">
+        <div class="derive-origin a">
+          <span class="derive-origin-tag">需求来源</span>
+          <p class="derive-origin-text">孩子最近迷上了脑筋急转弯的游戏</p>
+        </div>
+
         <div class="derive-top st">
           <div class="derive-node">
             <h3>以前方案的问题</h3>
@@ -164,10 +169,10 @@
           </div>
 
           <div class="derive-node is-need">
-            <h3>真实需求</h3>
+            <h3>需要优化</h3>
             <ul class="clean-list">
-              <li>题目要好玩</li>
-              <li>5 岁能听懂</li>
+              <li>题目要好玩、5 岁能听懂</li>
+              <li>使用过程不断优化题库</li>
             </ul>
           </div>
         </div>
@@ -183,13 +188,6 @@
         <div class="derive-solution frag" data-step="1">
           <div class="derive-kicker">推导出的方案</div>
           <h3 class="derive-title">出版书作题库 + Grok Bot 筛选改写</h3>
-          <div class="derive-steps">
-            <span>挑适龄题</span>
-            <i aria-hidden="true">→</i>
-            <span>改 5 岁口语</span>
-            <i aria-hidden="true">→</i>
-            <span>睡前一起玩</span>
-          </div>
         </div>
       </div>
     </div>
@@ -501,51 +499,91 @@
           <ol class="co-steps">
             <li class="co-step">
               <span class="no">01</span>
-              <h3>说想法</h3>
-              <p>拿孩子画的纸，先定想做成什么</p>
+              <h3>孩子作画</h3>
+              <p>美术课或平时创作的画</p>
             </li>
             <li class="co-step">
               <span class="no">02</span>
-              <h3>选角色</h3>
-              <p>挑出画面主角，保留原画特征与署名</p>
+              <h3>生成结果</h3>
+              <p>将原图丢给 Bot 即可</p>
             </li>
             <li class="co-step">
               <span class="no">03</span>
-              <h3>选动作</h3>
-              <p>让孩子选挥手、转身或打招呼动作</p>
-            </li>
-            <li class="co-step">
-              <span class="no">04</span>
-              <h3>看结果</h3>
-              <p>生成 3D 图和动画后，跟孩子一起看</p>
-            </li>
-            <li class="co-step">
-              <span class="no">05</span>
-              <h3>提修改</h3>
-              <p>哪处不满意，用大白话接着改下一版</p>
+              <h3>随时修改</h3>
+              <p>自然语言提出需求，随时优化</p>
             </li>
           </ol>
+
+          <div class="co-extend">
+            <span class="co-extend-tag">延展</span>
+            <p class="co-extend-text">购买 3D 打印机，可将孩子的画作带入现实世界</p>
+          </div>
         </div>
 
         <div class="co-col co-examples">
-          <div class="iter-kicker is-accent">自然语言说需求案例</div>
-          <div class="co-example-list">
-            <div class="co-ex-card">
-              <span class="co-ex-tag">精修原画</span>
-              <p class="co-ex-quote">「把拍歪的原画拉正做清晰，保留上面手写的字」</p>
+          <div class="iter-kicker is-accent">自然语言修改案例</div>
+
+          <div class="co-demand">
+            <span class="co-ex-tag">需求</span>
+            <p class="co-ex-quote">右边的小猫是坐着的，你能修改吗？</p>
+          </div>
+
+          <div class="cat-evo-wrap">
+            <div class="cat-evo-grid">
+              <div class="cat-card">
+                <div class="cat-card-frame">
+                  <img src="assets/caladium-orig.jpg" alt="孩子手绘《彩叶芋》原图，右下角粉色小猫呈坐姿">
+                </div>
+                <div class="cat-evo-cap"><span>01</span> 原图</div>
+              </div>
+
+              <div class="cat-evo-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M 4 12 H 19" />
+                  <path d="M 14 7 L 20 12 L 14 17" />
+                </svg>
+              </div>
+
+              <div class="cat-card">
+                <div class="cat-card-frame">
+                  <img src="assets/caladium-v1.jpg" alt="第一版 3D 图：右下角粉色小猫站起来了">
+                </div>
+                <div class="cat-evo-cap"><span>02</span> 第一版图</div>
+              </div>
+
+              <div class="cat-evo-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M 4 12 H 19" />
+                  <path d="M 14 7 L 20 12 L 14 17" />
+                </svg>
+              </div>
+
+              <div class="cat-card">
+                <div class="cat-card-frame">
+                  <img src="assets/caladium-v2.jpg" alt="第二版 3D 图：右下角粉色小猫改为坐姿">
+                </div>
+                <div class="cat-evo-cap"><span>03</span> 第二版图</div>
+              </div>
+
+              <div class="cat-evo-spacer" aria-hidden="true"></div>
+
+              <div class="cat-card">
+                <div class="cat-card-frame is-zoom">
+                  <img src="assets/caladium-v2-cat.jpg" alt="第二版图右下角局部放大：坐下的粉色小猫">
+                </div>
+                <div class="cat-evo-cap"><span>04</span> 坐下的小猫</div>
+              </div>
             </div>
-            <div class="co-ex-card">
-              <span class="co-ex-tag">做成 3D</span>
-              <p class="co-ex-quote">「保留原画细节和署名「龙游艺」，把套娃做成 3D」</p>
-            </div>
-            <div class="co-ex-card">
-              <span class="co-ex-tag">加上动作</span>
-              <p class="co-ex-quote">「只给最大那只套娃加一只小手，挥手打招呼」</p>
-            </div>
-            <div class="co-ex-card">
-              <span class="co-ex-tag">继续微调</span>
-              <p class="co-ex-quote">「另外三只不用动，把动作放慢一点重新生成」</p>
-            </div>
+
+            <svg class="cat-zoom-svg" viewBox="0 0 992 296" fill="none" aria-hidden="true">
+              <polygon points="695,227 766,6 766,290 701,271" class="cat-zoom-beam" />
+              <line x1="695" y1="227" x2="766" y2="6" class="cat-zoom-ray" />
+              <line x1="701" y1="271" x2="766" y2="290" class="cat-zoom-ray" />
+              <line x1="669" y1="269" x2="657" y2="281" class="cat-zoom-handle-halo" />
+              <line x1="669" y1="269" x2="657" y2="281" class="cat-zoom-handle" />
+              <circle cx="687" cy="251" r="25" class="cat-zoom-ring-halo" />
+              <circle cx="687" cy="251" r="25" class="cat-zoom-ring" />
+            </svg>
           </div>
         </div>
       </div>

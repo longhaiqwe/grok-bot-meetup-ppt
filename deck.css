@@ -445,7 +445,7 @@ select {
   max-width: 680px;
   justify-self: center;
   background: var(--surface-white);
-  padding: 16px;
+  padding: var(--sp-2);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-media);
 }
@@ -455,6 +455,7 @@ select {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  object-position: center;
   border-radius: var(--r-md);
 }
 
@@ -850,18 +851,49 @@ select {
 }
 
 /* ================= 05 场景一：问题与需求推导方案（Refactoring UI 约束） =================
- * Constraint Brief:
+ * Constraint Brief (Workflow C · Refine):
  * - Hierarchy:
  *     Primary   -> Slide headline (--ink 700, 64px) + converged solution title (--ink 700, 46px on --accent-soft + 3px --accent top border)
- *     Secondary -> Top comparison nodes: 以前方案的问题 (--body2/--muted, 2px --line) + 真实需求 (--ink/--body2, 2px --line-strong)
- *     Tertiary  -> Kicker "推导出的方案" (22px, --accent-ink) & steps (26px, --accent-ink); zero grey text on --accent-soft
- * - Typography: Strictly 2 weights (400/500 & 700); max 3 text colors (--ink / --body2 / --muted) + --accent / --accent-ink.
- * - Spacing: 8 / 16 / 24 / 36 / 56 / 80 scale; 80px horizontal column gap matches SVG centers at x=392 and x=1256 across 1648px body.
+ *     Secondary -> Origin context bar (.derive-origin: --surface + 4px --line-strong, zero competing accent; tag 20px --body2, text 28px --ink)
+ *                  + top comparison nodes: 以前方案的问题 (--body2/--muted, 2px --line) + 需要优化 (--ink/--body2, 2px --line-strong)
+ *     Tertiary  -> Kicker "推导出的方案" (22px, --accent-ink); zero grey text on --accent-soft
+ * - Typography: Strictly 2 weights (500/700); max 3 neutral text colors (--ink / --body2 / --muted) + --accent / --accent-ink.
+ * - Spacing: 8 / 16 / 24 / 36 / 56 / 80 scale; origin outer margin 56px > inner padding 16px; 80px horizontal column gap matches SVG centers at x=392 and x=1256 across 1648px body.
  */
 .derive-layout {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.derive-origin {
+  align-self: center;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  max-width: 100%;
+  margin-bottom: var(--sp-5);
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--surface);
+  border-left: 4px solid var(--line-strong);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+
+.derive-origin-tag {
+  flex: none;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--body2);
+}
+
+.derive-origin-text {
+  font-family: var(--f-head);
+  font-size: 28px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--ink);
 }
 
 .derive-top {
@@ -987,22 +1019,6 @@ select {
   line-height: 1.25;
   font-weight: 700;
   color: var(--ink);
-}
-
-.derive-steps {
-  display: inline-flex;
-  align-items: center;
-  gap: 22px;
-  margin-top: 4px;
-  font-size: 26px;
-  line-height: 1.4;
-  font-weight: 700;
-  color: var(--accent-ink);
-}
-
-.derive-steps i {
-  font-style: normal;
-  opacity: 0.65;
 }
 
 /* ================= 05 场景一：爸爸读题（大引语 + 三行节奏） ================= */
@@ -1723,15 +1739,20 @@ select {
   color: var(--accent);
 }
 
-/* ================= 12 场景三：孩子参与 AI 制作（等宽双栏对齐） =================
- * Refactoring UI 约束：
- * - 与第 10 页一致采用等宽双栏 + align-items: stretch，保证左栏「共创流程」与右栏「自然语言说需求案例」上下边界严格齐平。
- * - 右栏 4 条示例卡采用 --surface 中性暖灰底 + 4px --accent 左竖条 + --accent-ink 标签 + --ink 引语，无彩底灰字。
+/* ================= 13 场景三：孩子深度参与制作（Refactoring UI 约束） =================
+ * Constraint Brief (Workflow C · Refine):
+ * - Hierarchy:
+ *     Primary   -> Slide headline (--ink 700, 64px) + right-column demand quote (.co-demand: --accent-soft + 4px --accent left bar, 27px --ink) + v2 magnifier focus
+ *     Secondary -> Left column process steps (01–03, 32px --ink / 24px --body2) + quiet bottom extension (.co-extend: neutral --surface + 4px --line-strong, zero competing accent)
+ *     Tertiary  -> Section kickers (22px) + 4-stage captions (20px --ink / 18px --accent); zero grey text on --accent-soft
+ * - Layout & Spacing:
+ *     600px left + 56px gap + 992px right = 1648px body; align-items: stretch aligns left .co-extend flush with right caption baseline.
+ *     4 image mats strictly 3:4 (226x296 outer, 8px pad -> 210x280 image) so SVG magnifier at (687, 251) locks onto bottom-right cat and projects cleanly to card 4 (766, 6..290).
  */
 .co-layout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 72px;
+  grid-template-columns: 600px minmax(0, 1fr);
+  gap: var(--sp-5);
   align-items: stretch;
   width: 100%;
   min-height: 0;
@@ -1745,7 +1766,7 @@ select {
 
 .co-steps {
   list-style: none;
-  margin: 0;
+  margin: 0 0 var(--sp-3);
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -1753,10 +1774,10 @@ select {
 
 .co-step {
   display: grid;
-  grid-template-columns: 52px 136px minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: 44px 128px minmax(0, 1fr);
+  gap: var(--sp-2);
   align-items: baseline;
-  padding: 36px 0;
+  padding: 30px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1784,29 +1805,47 @@ select {
   color: var(--body2);
 }
 
-.co-example-list {
-  flex: 1;
-  margin-top: 22px;
+.co-extend {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 18px;
-}
-
-.co-ex-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  padding: 18px 24px;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-3);
   background: var(--surface);
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--line-strong);
   border-radius: 0 var(--r-sm) var(--r-sm) 0;
 }
 
-.co-ex-tag {
+.co-extend-tag {
   font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--body2);
+}
+
+.co-extend-text {
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.co-demand {
+  margin-top: var(--sp-3);
+  margin-bottom: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+
+.co-ex-tag {
+  flex: none;
+  font-size: 20px;
   line-height: 1.3;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -1814,10 +1853,144 @@ select {
 }
 
 .co-ex-quote {
-  font-size: 24px;
-  line-height: 1.45;
-  font-weight: 500;
+  font-family: var(--f-head);
+  font-size: 27px;
+  line-height: 1.35;
+  font-weight: 700;
   color: var(--ink);
+}
+
+.cat-evo-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.cat-evo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1fr) 40px minmax(0, 1fr);
+  align-items: start;
+}
+
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cat-card-frame {
+  background: var(--surface-white);
+  padding: var(--sp-1);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-media);
+}
+
+.cat-card-frame.is-zoom {
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow-media);
+}
+
+.cat-card-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+}
+
+.cat-evo-arrow {
+  height: 296px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cat-evo-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.cat-evo-arrow path {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.72;
+}
+
+.cat-evo-spacer {
+  height: 296px;
+}
+
+.cat-evo-cap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 0 2px;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cat-evo-cap span {
+  font-family: var(--f-num);
+  font-style: var(--num-style);
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: var(--num-w);
+  color: var(--accent);
+}
+
+.cat-zoom-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 296px;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 2;
+}
+
+.cat-zoom-beam {
+  fill: var(--accent);
+  fill-opacity: 0.08;
+}
+
+.cat-zoom-ray {
+  stroke: var(--accent);
+  stroke-width: 1.75;
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.cat-zoom-ring-halo,
+.cat-zoom-handle-halo {
+  stroke: var(--surface-white);
+  stroke-linecap: round;
+}
+
+.cat-zoom-ring-halo {
+  stroke-width: 5.5;
+}
+
+.cat-zoom-handle-halo {
+  stroke-width: 7;
+}
+
+.cat-zoom-ring,
+.cat-zoom-handle {
+  stroke: var(--accent);
+  stroke-linecap: round;
+}
+
+.cat-zoom-ring {
+  stroke-width: 2.75;
+}
+
+.cat-zoom-handle {
+  stroke-width: 4;
 }
 
 /* ================= 14 共识：什么是高质量陪伴？ =================

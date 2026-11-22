@@ -32,8 +32,9 @@ python3 -m http.server 4173
 - `assets/dudu-english-48s.mp4` + `assets/dudu-english-poster.jpg`：第 10 页右侧约 48 秒水果英语动画成片与封面
 - `assets/english-use-stageshow.mp4` + `assets/english-use-stageshow-poster.jpg`：第 10 页左侧用 Stageshow 制作的「儿童英语动画 Bot」使用过程演示（传孩子与虎虎参考图→定妆分镜→词汇去重出片）
 - `assets/matryoshka-raw.jpg`：第 11 页手绘套娃原画实拍
-- `assets/cover-daughter.jpg`：第 1 页封面女儿照片（768×768 裁切）
+- `assets/cover-daughter-5.jpg`：第 1 页封面 5 岁女儿生日棚拍图（960×960 正方裁切）
 - `assets/matryoshka-3d.png`：第 11 页套娃 3D 造型图
 - `assets/matryoshka-hello.mp4` + `assets/matryoshka-hello-poster.jpg`：第 11 页 6 秒挥手动画
 - `assets/draw-use-stageshow.mp4` + `assets/draw-use-stageshow-poster.jpg`：第 12 页用 Stageshow 制作的「儿童画焕新」Bot 使用过程动画（约 12.0 秒，传海马原画→出精修/3D→核对防抖动→6 秒动画）
 - `assets/seahorse-3d.jpg` + `assets/seahorse-anim.mp4` + `assets/seahorse-anim-poster.jpg`：第 12 页右侧展示的实拍海马生成 3D 造型与 6 秒动画成品
+- `assets/caladium-orig.jpg`、`caladium-v1.jpg`、`caladium-v2.jpg`、`caladium-v2-cat.jpg`：第 13 页右侧《彩叶芋》原图、第一版、第二版与右下角坐姿小猫局部放大图
